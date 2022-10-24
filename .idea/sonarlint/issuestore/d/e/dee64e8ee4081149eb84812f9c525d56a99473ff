@@ -1,0 +1,10 @@
+
+npython:S116	"RRename this field "pushButton" to match the regular expression ^[_a-z][_a-z0-9]*$.(Äâàøøÿÿÿÿ
+python:S101"cRename class "Ui_Dialog" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ÄÒ“Ñıÿÿÿÿ
+npython:S117"RRename this parameter "Dialog" to match the regular expression ^[_a-z][a-z0-9_]*$.(¦ÜÕåøÿÿÿÿ
+wpython:S117"[Rename this local variable "sizePolicy" to match the regular expression ^[_a-z][a-z0-9_]*$.(§ûùÿÿÿÿ
+gpython:S100"KRename method "setupUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(¦ÜÕåøÿÿÿÿ
+npython:S117#"RRename this parameter "Dialog" to match the regular expression ^[_a-z][a-z0-9_]*$.(Áë¢èşÿÿÿÿ
+mpython:S100#"QRename method "retranslateUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(Áë¢èşÿÿÿÿ
+;python:S125C"Remove this commented out code.(°ó‰ëûÿÿÿÿ
+6python:S125c"Remove this commented out code.(³ÂŠ”
