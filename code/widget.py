@@ -17,7 +17,7 @@ from Settings import *
 from ByOrder import *
 from SaveConfirm import *
 from Bubble import *
-
+# 测试一下pycharm的Git
 # noinspection PyAttributeOutsideInit
 class MainWindow(QWidget):
     def __init__(self):
