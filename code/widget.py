@@ -877,16 +877,26 @@ class MainWindow(QWidget):
 
     #TODO fun
     def BetterRoad(self):
+        self.cost_best = 1e9
+        threading_list = []
         for item in self.selected_pos:
+            print("new")
             t = threading.Thread(target = self.CalculateBetter,args=(item,))
             t.start()
-        print("111")
+            threading_list.append(t)
+
+        for t in threading_list:
+            t.join()
+        self.Main_text = "已为您智能略去目的地："
+
+        exec(f"text = self.A{self.del_pos}.toolTip()")
+        exec("self.Main_text += text ")
+        self.MainText.setText(self.Main_text)
+
         d = DrawRoad(self.AddofFigure)
-        print("222")
         d.DrawImage(self.entire_road_best,self.simple_road_best)
-        print("333")
         self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
-        print("444")
+        exec(f"self.B{item}.close()")
         self.selected_pos.remove(self.del_pos)
 
     def CalculateBetter(self,item):
@@ -898,3 +908,4 @@ class MainWindow(QWidget):
             self.entire_road_best = entire_road
             self.del_pos = item
         self.tsp_backtrack.ClearAll()
+        print(f"{item}完成")
