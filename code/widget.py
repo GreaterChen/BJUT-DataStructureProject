@@ -556,7 +556,6 @@ class MainWindow(QWidget):
         self.A18.setToolTip(_translate("Widget", "宿舍13&14号楼"))
         self.A19.setToolTip(_translate("Widget", "东门"))
         self.A20.setToolTip(_translate("Widget", "能源楼"))
-        self.A21.setToolTip(_translate("Widget", "A21"))
         self.A21.setToolTip(_translate("Widget", "信息楼"))
         self.A22.setToolTip(_translate("Widget", "逸夫图书馆"))
         self.A23.setToolTip(_translate("Widget", "第三教学楼"))
@@ -605,7 +604,29 @@ class MainWindow(QWidget):
                 t = TSP_BackTrack()
                 self.simple_road, self.entire_road, self.min_distance = t.tsp(self.selected_pos)
                 t.ClearAll()
-            self.Main_text = str(self.simple_road) + '\n' + str(self.entire_road)
+
+            simple_citys = []
+            for i in self.simple_road:
+                exec("text = self.A{}.toolTip()".format(i))
+                exec("simple_citys.append(text)")
+
+            print(simple_citys)
+
+            entire_citys = []
+            for i in self.entire_road:
+                exec("text = self.A{}.toolTip()".format(i))
+                exec("entire_citys.append(text)")
+            self.Main_text = "路径如下：\n"
+            for i in simple_citys:
+                self.Main_text += '\t'
+                self.Main_text += i
+                self.Main_text += '\n'
+
+            self.Main_text += "详细路径如下：\n"
+            for i in entire_citys:
+                self.Main_text += '\t'
+                self.Main_text +=i
+                self.Main_text += '\n'
             self.MainText.setText(self.Main_text)
             d = DrawRoad(self.AddofFigure)
             d.DrawImage(self.entire_road, self.simple_road)
@@ -796,8 +817,6 @@ class MainWindow(QWidget):
             exec("self.B{}.setWindowOpacity(0.7)".format(item))
             exec("self.B{}.show()".format(item))
 
-        # self.B1 = UI_Bubble(0)
-        # self.B1.setWindowOpacity(0.3)
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
@@ -805,3 +824,13 @@ class MainWindow(QWidget):
             for item in self.selected_pos:
                 exec("self.B{}.close()".format(item))
 
+    def changeEvent(self, event):
+        if event.type() == QEvent.WindowStateChange:
+            if self.windowState() & Qt.WindowMinimized:
+                event.ignore()
+                if self.GetRoad.isEnabled() == False:
+                    for item in self.selected_pos:
+                        print(item)
+                        exec("self.B{}.showMinimized".format(item))
+
+                return
