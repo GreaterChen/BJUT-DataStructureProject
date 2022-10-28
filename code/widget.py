@@ -595,7 +595,6 @@ class MainWindow(QWidget):
                     t = TSP_GA(self.selected_pos)
                     self.simple_road, self.entire_road, self.min_distance = t.run(20)
                 else:
-                    # t = TSP_BackTrack()
                     self.simple_road, self.entire_road, self.min_distance = self.tsp_backtrack.tsp(self.selected_pos)
                     self.tsp_backtrack.ClearAll()
             elif self.AlgorithmModel == 1:

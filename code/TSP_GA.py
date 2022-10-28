@@ -44,8 +44,8 @@ class TSP_GA(object):
 
         for line in lines:
             building = line.strip('\n').split(' ')
-            num = int(building[0])
-            name = building[1]
+            num = int(building[0])  # 地点编号
+            name = building[1]  # 地点名称
             positions = building[2].split(',')
             pos_1 = float(positions[0])
             pos_2 = float(positions[1])
@@ -92,6 +92,14 @@ class TSP_GA(object):
             self.ga.next()
             self.best_distance = self.distance(self.ga.best.gene)
             n -= 1
+        simple_road = self.get_simple_road()
+        entire_road = self.get_entire_road()
+        simple_road_citys = []
+        entire_road_citys = []
+        for i in simple_road:
+            simple_road_citys.append(self.citys[i][2])
+        print("citys:",simple_road_citys)
+
         return self.get_simple_road(), self.get_entire_road(), self.best_distance
 
     def get_simple_road(self):

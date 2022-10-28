@@ -81,8 +81,6 @@ def check_neighbor():
                 print(i, j)
 
 
-
-
 # 获得邻接矩阵并写入文件
 for i in range(47):
     for j in neighbor[i]:
