@@ -8,7 +8,7 @@
 
 
 # from PyQt5 import QtCore, QtGui, QtWidgets
-
+import threading
 from TSP_GA import *
 from TSP_BackTrack import *
 from DrawImage import *
@@ -27,6 +27,12 @@ class MainWindow(QWidget):
         self.simple_road = []
         self.entire_road = []
         self.min_distance = -1
+
+        self.cost_best = 1e9
+        self.simple_road_best = None
+        self.entire_road_best = None
+        self.del_pos = None
+
         self.tsp_backtrack = TSP_BackTrack()
         self.IsNBG = False
         self.AddofFigure = "D:\\Grade_3.1\\DS\\project\\result"
@@ -35,6 +41,7 @@ class MainWindow(QWidget):
         self.setupUi(self)
         self.getConfig()
         self.setShadow()
+
 
     def setupUi(self, Widget):
         # 主体界面
@@ -169,6 +176,8 @@ class MainWindow(QWidget):
         self.GetBetterRoad.setGeometry(QRect(100, 240, 95, 50))
         self.GetBetterRoad.setStyleSheet("background:rgb(197, 225, 184)")
         self.GetBetterRoad.setObjectName("GetBetterRoad")
+        self.GetBetterRoad.clicked.connect(self.BetterRoad)
+
 
         self.Start = QPushButton(self)
         self.Start.setGeometry(QRect(100,310,95,50))
@@ -621,7 +630,7 @@ class MainWindow(QWidget):
 
             elif self.AlgorithmModel == 2:
                 t = TSP_BackTrack()
-                self.simple_road, self.entire_road, self.min_distance = t.tsp(self.selected_pos)
+                self.simple_road, self.entire_road, self.min_distance = self.tsp_backtrack.tsp(self.selected_pos)
                 t.ClearAll()
 
             simple_citys = []
@@ -828,7 +837,8 @@ class MainWindow(QWidget):
         self.AddofFigure = text[4]
 
     def CloseBubble(self):
-        pass
+        print(self.simple_road_best)
+        print(self.entire_road_best)
 
     def DrawBubble(self):
         self.Bubble_pos = []
@@ -865,3 +875,26 @@ class MainWindow(QWidget):
             for i,item in enumerate(self.selected_pos):
                 exec(f"self.B{item}.move(self.Bubble_pos[{i}][0] + self.pos().x(),self.Bubble_pos[{i}][1] + self.pos().y())")
 
+    #TODO fun
+    def BetterRoad(self):
+        for item in self.selected_pos:
+            t = threading.Thread(target = self.CalculateBetter,args=(item,))
+            t.start()
+        print("111")
+        d = DrawRoad(self.AddofFigure)
+        print("222")
+        d.DrawImage(self.entire_road_best,self.simple_road_best)
+        print("333")
+        self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
+        print("444")
+        self.selected_pos.remove(self.del_pos)
+
+    def CalculateBetter(self,item):
+        pos = self.selected_pos.copy()
+        pos.remove(item)
+        simple_road, entire_road, min_distance = self.tsp_backtrack.tsp(pos)
+        if min_distance < self.cost_best:
+            self.simple_road_best = simple_road
+            self.entire_road_best = entire_road
+            self.del_pos = item
+        self.tsp_backtrack.ClearAll()
