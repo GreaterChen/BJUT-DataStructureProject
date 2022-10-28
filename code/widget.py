@@ -74,7 +74,6 @@ class MainWindow(QWidget):
         self.MainText.setFont(font_MainText)
         self.MainText.setText(
             "也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。")
-
         self.xiaohui = QLabel(Widget)
         self.xiaohui.setGeometry(QRect(200, 10, 111, 111))
         # self.xiaohui.setContextMenuPolicy(Qt.DefaultContextMenu)
@@ -159,6 +158,22 @@ class MainWindow(QWidget):
         self.GetBack.setObjectName("GetBack")
         self.GetBack.clicked.connect(self.CloseBubble)
         self.horizontalLayout.addWidget(self.GetBack)
+
+        #TODO 获取路线的按钮
+        self.ChangeRoad = QPushButton(self)
+        self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
+        self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
+        self.ChangeRoad.setObjectName("ChangeRoad")
+
+        self.GetBetterRoad = QPushButton(self)
+        self.GetBetterRoad.setGeometry(QRect(100, 240, 95, 50))
+        self.GetBetterRoad.setStyleSheet("background:rgb(197, 225, 184)")
+        self.GetBetterRoad.setObjectName("GetBetterRoad")
+
+        self.Start = QPushButton(self)
+        self.Start.setGeometry(QRect(100,310,95,50))
+        self.Start.setStyleSheet("background:rgb(197, 225, 184)")
+        self.Start.setObjectName("Start")
 
         # 清除全部选择
         self.clearall = QPushButton(self.layoutWidget)
@@ -534,6 +549,10 @@ class MainWindow(QWidget):
         self.TSP_button.setText(_translate("Widget", "TSP"))
         self.TSPwr_button.setText(_translate("Widget", "TSP without return"))
         self.by_order_button.setText(_translate("Widget", "by order"))
+        #TODO 控件命名
+        self.GetBetterRoad.setText(_translate("Widget","简化路线"))
+        self.Start.setText(_translate("Widget","出发"))
+        self.ChangeRoad.setText(_translate("Widget","换条路线"))
 
         self.A1.setToolTip(_translate("Widget", "宿舍2号楼"))
         self.A2.setToolTip(_translate("Widget", "天天餐厅&学生综合服务大厅"))
