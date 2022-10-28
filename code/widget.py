@@ -812,10 +812,13 @@ class MainWindow(QWidget):
         pass
 
     def DrawBubble(self):
+        self.Bubble_pos = []
         for item in self.selected_pos:
             exec("self.B{} = UI_Bubble({})".format(item,item))
             exec("self.B{}.setWindowOpacity(0.7)".format(item))
             exec("self.B{}.show()".format(item))
+            exec(f"self.Bubble_pos.append([self.B{item}.pos().x(),self.B{item}.pos().y()])")
+        print(self.Bubble_pos)
 
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
 
@@ -827,13 +830,19 @@ class MainWindow(QWidget):
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:
             if self.windowState() & Qt.WindowMinimized:
-                for item in self.selected_pos:
-                    exec("self.B{}.setVisible(False)".format(item))
-                return
+                if self.GetRoad.isEnabled() == False:
+                    for item in self.selected_pos:
+                        exec("self.B{}.setVisible(False)".format(item))
+                    return
 
             if Qt.WindowMaximized:
-                for item in self.selected_pos:
-                    exec("self.B{}.setVisible(True)".format(item))
-                return
+                if self.GetRoad.isEnabled() == False:
+                    for item in self.selected_pos:
+                        exec("self.B{}.setVisible(True)".format(item))
+                    return
 
+    def moveEvent(self, QMoveEvent):
+        if self.GetRoad.isEnabled() == False:
+            for i,item in enumerate(self.selected_pos):
+                exec(f"self.B{item}.move(self.Bubble_pos[{i}][0] + self.pos().x(),self.Bubble_pos[{i}][1] + self.pos().y())")
 
