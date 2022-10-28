@@ -827,10 +827,13 @@ class MainWindow(QWidget):
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:
             if self.windowState() & Qt.WindowMinimized:
-                event.ignore()
-                if self.GetRoad.isEnabled() == False:
-                    for item in self.selected_pos:
-                        print(item)
-                        exec("self.B{}.showMinimized".format(item))
-
+                for item in self.selected_pos:
+                    exec("self.B{}.setVisible(False)".format(item))
                 return
+
+            if Qt.WindowMaximized:
+                for item in self.selected_pos:
+                    exec("self.B{}.setVisible(True)".format(item))
+                return
+
+
