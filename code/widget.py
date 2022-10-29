@@ -18,12 +18,8 @@ class MainWindow(QWidget):
         self.selected_pos = []
         self.Main_text = ''
         self.road = Route()
-        self.min_distance = -1
         self.BubbleOpacity = 0.50
 
-        self.cost_best = 1e9
-        self.simple_road_best = None
-        self.entire_road_best = None
         self.del_pos = None
 
         self.tsp_backtrack = TSP_BackTrack()
@@ -34,13 +30,6 @@ class MainWindow(QWidget):
         self.setupUi(self)
         self.getConfig()
         self.setShadow()
-
-        with open("../address/citys_name.txt", "w") as f:
-            for i in range(47):
-                f.write(str(i))
-                f.write(' ')
-                exec(f"f.write(self.A{i}.toolTip())")
-                f.write('\n')
 
     def setupUi(self, Widget):
         # 主体界面
@@ -76,7 +65,8 @@ class MainWindow(QWidget):
         font_MainText.setPointSize(12)
         self.MainText.setFont(font_MainText)
         self.MainText.setText(
-            "也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。")
+            "<p>也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。<p>")
+        self.MainText.textChanged.connect(self.Savelog)
 
         self.xiaohui = QLabel(Widget)
         self.xiaohui.setGeometry(QRect(200, 10, 111, 111))
@@ -163,7 +153,6 @@ class MainWindow(QWidget):
         self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
 
-        # TODO 开始按钮
         self.ChangeRoad = QPushButton(self)
         self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
         self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
@@ -639,13 +628,22 @@ class MainWindow(QWidget):
             for i in self.road.simple_citys_name:
                 self.Main_text += '\t'
                 self.Main_text += i
-                self.Main_text += '\n'
+                self.Main_text += '-->\n'
+
+            self.Main_text += '\t'
+            self.Main_text += self.road.simple_citys_name[0]
+            self.Main_text += '\n'
 
             self.Main_text += "详细路径如下：\n"
             for i in self.road.entire_citys_name:
                 self.Main_text += '\t'
                 self.Main_text += i
-                self.Main_text += '\n'
+                self.Main_text += '-->\n'
+
+            self.Main_text += '\t'
+            self.Main_text += self.road.entire_citys_name[0]
+            self.Main_text += '\n'
+
 
             self.MainText.setText(self.Main_text)
 
@@ -834,7 +832,6 @@ class MainWindow(QWidget):
         self.MainText.setText(self.Main_text)
         self.selected_pos.pop()
 
-    # TODO 绘制气泡
     def DrawBubble(self):
         self.Bubble_pos = []
         for i, item in enumerate(self.road.simple_road[0:-1]):
@@ -923,3 +920,9 @@ class MainWindow(QWidget):
     def Go(self):
         for item in self.selected_pos:
             exec(f"self.B{item}.GoGoGo()")
+
+    def Savelog(self):
+        add = self.AddofFigure + '/res.txt'
+        with open(add,"w") as f:
+            f.write(self.MainText.toPlainText())
+

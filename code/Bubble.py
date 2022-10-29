@@ -91,7 +91,7 @@ class UI_Bubble(MyDialog):
 
     def GoGoGo(self):
         now = QTime.currentTime()
-        second = int(self.distance / 6.66)
+        second = int(self.distance / 1.11)
         time = now.addSecs(second).toString(Qt.DefaultLocaleLongDate)
         self.ui.label_2.setText(f"""
                                 <html>
