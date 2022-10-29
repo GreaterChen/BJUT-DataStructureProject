@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from Route import *
 
 
 class DrawRoad:
@@ -31,12 +32,11 @@ class DrawRoad:
     def axis_change(self, x, y):
         return x - self.x_base, y - self.y_base
 
-    def DrawImage(self, entired_res, simple_res):
-
-        pos = entired_res.copy()
-        pos.append(pos[0])
-        simple_pos = simple_res.copy()
-        simple_pos.append(simple_pos[0])
+    def DrawImage(self, road: Route):
+        print(road.entire_road)
+        print(road.simple_road)
+        pos = road.entire_road.copy()
+        simple_pos = road.simple_road.copy()
         for i in range(len(pos) - 1):
             x1, y1 = self.axis_change(self.x[pos[i]], self.y[pos[i]])
             x2, y2 = self.axis_change(self.x[pos[i + 1]], self.y[pos[i + 1]])

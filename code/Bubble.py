@@ -54,7 +54,6 @@ class Ui_Dialog(object):
 class UI_Bubble(MyDialog):
     def __init__(self, i, Opacity, city_name, distance):
         super().__init__(None)
-        print(i, Opacity, city_name)
         self.distance = distance
         self.city_name =city_name
         self.x = []
@@ -77,6 +76,7 @@ class UI_Bubble(MyDialog):
                                     </body>
                                 </html>"""
                                 )
+        self.GoGoGo()
 
     def ReadAxis(self):
         with open('../address/axis_x.txt') as f:
@@ -93,7 +93,6 @@ class UI_Bubble(MyDialog):
         now = QTime.currentTime()
         second = int(self.distance / 6.66)
         time = now.addSecs(second).toString(Qt.DefaultLocaleLongDate)
-        print("222")
         self.ui.label_2.setText(f"""
                                 <html>
                                 <head/>
@@ -105,7 +104,6 @@ class UI_Bubble(MyDialog):
                                     </body>
                                 </html>"""
                                 )
-        print("333")
 
 
 if __name__ == '__main__':

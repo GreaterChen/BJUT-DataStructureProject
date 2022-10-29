@@ -81,7 +81,7 @@ class TSP_BackTrack:
         self.get_entire_path()
 
         sum = 0
-        for i in range(len(self.road.simple_road)-1):
+        for i in range(len(self.road.simple_road) - 1):
             if i == 0:
                 self.road.signle_distance.append(self.road.min_distance)
                 continue
@@ -93,7 +93,6 @@ class TSP_BackTrack:
             sum += dis
             self.road.signle_distance.append(sum)
             self.road.GetCitysName()
-
         return self.road
 
 
@@ -104,4 +103,3 @@ if __name__ == '__main__':
     print(t.road.entire_road)
     print(t.road.min_distance)
     print(t.road.signle_distance)
-

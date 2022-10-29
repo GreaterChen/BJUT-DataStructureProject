@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import copy
 import threading
 from TSP_GA import *
 from TSP_BackTrack import *
@@ -9,6 +9,8 @@ from Settings import *
 from ByOrder import *
 from SaveConfirm import *
 from Bubble import *
+
+
 # noinspection PyAttributeOutsideInit
 class MainWindow(QWidget):
     def __init__(self):
@@ -16,8 +18,6 @@ class MainWindow(QWidget):
         self.selected_pos = []
         self.Main_text = ''
         self.road = Route()
-        self.simple_road = []
-        self.entire_road = []
         self.min_distance = -1
         self.BubbleOpacity = 0.50
 
@@ -35,7 +35,7 @@ class MainWindow(QWidget):
         self.getConfig()
         self.setShadow()
 
-        with open("../address/citys_name.txt","w") as f:
+        with open("../address/citys_name.txt", "w") as f:
             for i in range(47):
                 f.write(str(i))
                 f.write(' ')
@@ -163,7 +163,7 @@ class MainWindow(QWidget):
         self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
 
-        #TODO 开始按钮
+        # TODO 开始按钮
         self.ChangeRoad = QPushButton(self)
         self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
         self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
@@ -176,7 +176,7 @@ class MainWindow(QWidget):
         self.GetBetterRoad.clicked.connect(self.BetterRoad)
 
         self.Start = QPushButton(self)
-        self.Start.setGeometry(QRect(100,310,95,50))
+        self.Start.setGeometry(QRect(100, 310, 95, 50))
         self.Start.setStyleSheet("background:rgb(197, 225, 184)")
         self.Start.setObjectName("Start")
         self.Start.clicked.connect(self.Go)
@@ -556,9 +556,9 @@ class MainWindow(QWidget):
         self.TSPwr_button.setText(_translate("Widget", "TSP without return"))
         self.by_order_button.setText(_translate("Widget", "by order"))
 
-        self.GetBetterRoad.setText(_translate("Widget","简化路线"))
-        self.Start.setText(_translate("Widget","出发"))
-        self.ChangeRoad.setText(_translate("Widget","换条路线"))
+        self.GetBetterRoad.setText(_translate("Widget", "简化路线"))
+        self.Start.setText(_translate("Widget", "出发"))
+        self.ChangeRoad.setText(_translate("Widget", "换条路线"))
 
         self.A1.setToolTip(_translate("Widget", "宿舍2号楼"))
         self.A2.setToolTip(_translate("Widget", "天天餐厅&学生综合服务大厅"))
@@ -618,57 +618,49 @@ class MainWindow(QWidget):
             if self.AlgorithmModel == 0:
                 if len(self.selected_pos) >= 8:
                     t = TSP_GA(self.selected_pos)
-                    self.simple_road, self.entire_road, self.min_distance = t.run(20)
+                    self.road = t.run(20)
                 else:
-                    self.road = self.tsp_backtrack.run(self.selected_pos)
+                    self.road = copy.deepcopy(self.tsp_backtrack.run(self.selected_pos))
                     self.tsp_backtrack.ClearAll()
+
 
             elif self.AlgorithmModel == 1:
                 t = TSP_GA(self.selected_pos)
-                self.simple_road, self.entire_road, self.min_distance = t.run(10)
+                self.road = t.run(10)
 
             elif self.AlgorithmModel == 2:
                 t = TSP_BackTrack()
-                self.road = self.tsp_backtrack.tsp(self.selected_pos)
+                self.road = self.tsp_backtrack.run(self.selected_pos)
                 t.ClearAll()
 
-            simple_citys = []
-            for i in self.simple_road:
-                exec("text = self.A{}.toolTip()".format(i))
-                exec("simple_citys.append(text)")
-
-            entire_citys = []
-            for i in self.entire_road:
-                exec("text = self.A{}.toolTip()".format(i))
-                exec("entire_citys.append(text)")
-
-            self.Main_text  = f"总距离：{round(self.min_distance, 2)} m\n"
-            self.Main_text += f"预计用时：{int(self.min_distance / 66.6)}分{int((self.min_distance / 66.6 - int(self.min_distance / 66.6)) * 60)}秒\n"
+            self.Main_text = f"总距离：{round(self.road.min_distance, 2)} m\n"
+            self.Main_text += f"预计用时：{int(self.road.min_distance / 66.6)}分{int((self.road.min_distance / 66.6 - int(self.road.min_distance / 66.6)) * 60)}秒\n"
             self.Main_text += "路径如下：\n"
-            for i in simple_citys:
+            for i in self.road.simple_citys_name:
                 self.Main_text += '\t'
                 self.Main_text += i
                 self.Main_text += '\n'
 
             self.Main_text += "详细路径如下：\n"
-            for i in entire_citys:
+            for i in self.road.entire_citys_name:
                 self.Main_text += '\t'
-                self.Main_text +=i
+                self.Main_text += i
                 self.Main_text += '\n'
 
             self.MainText.setText(self.Main_text)
-            d = DrawRoad(self.AddofFigure)
 
-            d.DrawImage(self.entire_road, self.simple_road)
+            d = DrawRoad(self.AddofFigure)
+            d.DrawImage(self.road)
             self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
         elif self.TSPwr_button.isChecked():
             pass
         elif self.by_order_button.isChecked():
             order = ByOrder(self.selected_pos)
-            self.simple_road, self.entire_road, self.min_distance = order.GetRoad()
-            self.Main_text = str(self.simple_road) + '\n' + str(self.entire_road)
+            self.road = order.GetRoad()
+            # self.Main_text = str(self.simple_road) + '\n' + str(self.entire_road)
             self.MainText.setText(self.Main_text)
-            d.DrawImage_order(self.entire_road, self.simple_road)
+            d = DrawRoad(self.AddofFigure)
+            # d.DrawImage_order(self.entire_road, self.simple_road)
             self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
         else:
             QMessageBox.warning(self, '警告', '请选择模式')
@@ -677,7 +669,6 @@ class MainWindow(QWidget):
         t = TipUi('结果已保存', desktop.width() / 2, desktop.height() / 2)
         t.show()
         self.DrawBubble()
-
 
     def showTime(self):
         Time = QDateTime.currentDateTime()  # 系统时间
@@ -698,8 +689,7 @@ class MainWindow(QWidget):
                 exec("self.B{}.close()".format(item))
 
         self.selected_pos.clear()
-        self.simple_road.clear()
-        self.entire_road.clear()
+        self.road = Route()
         self.Main_text = ''
         self.MainText.setText('已清空所有选择')
 
@@ -780,12 +770,11 @@ class MainWindow(QWidget):
         elif model == 2:
             self.AlgorithmModel = 2
 
-    def ChangeAdd(self,add):
+    def ChangeAdd(self, add):
         self.AddofFigure = add
 
-
-    def ChangeOpacity(self,value):
-        self.BubbleOpacity = value/100
+    def ChangeOpacity(self, value):
+        self.BubbleOpacity = value / 100
 
     def getConfig(self):
         with open("config.txt") as f:
@@ -836,7 +825,7 @@ class MainWindow(QWidget):
 
         self.AddofFigure = text[4]
 
-        self.BubbleOpacity = int(text[5])/100
+        self.BubbleOpacity = int(text[5]) / 100
 
     def GetBackStep(self):
         self.Main_text += "已删除："
@@ -845,19 +834,17 @@ class MainWindow(QWidget):
         self.MainText.setText(self.Main_text)
         self.selected_pos.pop()
 
-    #TODO 绘制气泡
+    # TODO 绘制气泡
     def DrawBubble(self):
         self.Bubble_pos = []
-
-        for i,item in enumerate(self.simple_road):
-            exec(f"name = self.A{item}.toolTip()")
-            exec(f"self.B{item} = UI_Bubble(item,self.BubbleOpacity,name,self.signle_distance[i])")
+        for i, item in enumerate(self.road.simple_road[0:-1]):
+            # exec(f"name = self.road.")
+            exec(f"self.B{item} = UI_Bubble(item,self.BubbleOpacity,self.road.simple_citys_name[i],self.road.signle_distance[i])")
             exec(f"self.B{item}.setWindowOpacity(self.BubbleOpacity)")
             exec(f"self.B{item}.show()")
             exec(f"self.Bubble_pos.append([self.B{item}.pos().x(),self.B{item}.pos().y()])")
 
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
-
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         if self.GetRoad.isEnabled() == False:
@@ -880,57 +867,56 @@ class MainWindow(QWidget):
 
     def moveEvent(self, QMoveEvent):
         if self.GetRoad.isEnabled() == False:
-            for i,item in enumerate(self.selected_pos):
-                exec(f"self.B{item}.move(self.Bubble_pos[{i}][0] + self.pos().x(),self.Bubble_pos[{i}][1] + self.pos().y())")
-
+            for i, item in enumerate(self.selected_pos):
+                exec(
+                    f"self.B{item}.move(self.Bubble_pos[{i}][0] + self.pos().x(),self.Bubble_pos[{i}][1] + self.pos().y())")
 
     def BetterRoad(self):
         if self.GetRoad.isEnabled():
-            QMessageBox.warning(self,"警告","请先生成路径")
+            QMessageBox.warning(self, "警告", "请先生成路径")
             return
         if len(self.selected_pos) <= 2:
-            QMessageBox.information(self,"提示","路径已经很短啦")
+            QMessageBox.information(self, "提示", "路径已经很短啦")
             return
 
-        self.cost_best = 1e9
+        self.new_road = Route()
         threading_list = []
         for item in self.selected_pos:
-            t = threading.Thread(target = self.CalculateBetter,args=(item,))
+            t = threading.Thread(target=self.CalculateBetter, args=(item,))
             t.start()
             threading_list.append(t)
         for t in threading_list:
             t.join()
+        self.new_road.GetCitysName()
 
         self.Main_text += "\n已为您智能略去目的地："
-
         exec(f"text = self.A{self.del_pos}.toolTip()")
         exec("self.Main_text += text ")
         self.Main_text += '\n减少的的距离为：'
-        decrease_dis = str(round(self.min_distance - self.cost_best,2))
+        decrease_dis = str(round(self.road.min_distance - self.new_road.min_distance, 2))
         self.Main_text += f"{decrease_dis} m\n"
-        self.Main_text += f"当前总距离：{round(self.cost_best,2)} m\n"
-        self.Main_text += "预计用时:{}分{}秒\n".format(int(self.cost_best/66.6),int((self.cost_best/66.6 - int(self.cost_best/66.6))*60))
+        self.Main_text += f"当前总距离：{round(self.new_road.min_distance, 2)} m\n"
+        self.Main_text += "预计用时:{}分{}秒\n".format(int(self.new_road.min_distance / 66.6),
+                                                 int((self.new_road.min_distance / 66.6 - int(self.new_road.min_distance / 66.6)) * 60))
 
         self.MainText.setText(self.Main_text)
 
         d = DrawRoad(self.AddofFigure)
-        d.DrawImage(self.entire_road_best,self.simple_road_best)
+        d.DrawImage(self.new_road)
         self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
         exec(f"self.B{self.del_pos}.close()")
         self.selected_pos.remove(self.del_pos)
         for item in self.selected_pos:
             exec(f"self.B{item}.GoGoGo()")
 
-
-
-    def CalculateBetter(self,item):
+    def CalculateBetter(self, item):
         pos = self.selected_pos.copy()
         pos.remove(item)
-        simple_road, entire_road, min_distance,_ = self.tsp_backtrack.tsp(pos)
-        if min_distance < self.cost_best:
-            self.cost_best = min_distance
-            self.simple_road_best = simple_road
-            self.entire_road_best = entire_road
+        road = copy.deepcopy(self.tsp_backtrack.run(pos))
+        if road.min_distance < self.new_road.min_distance:
+            self.new_road.min_distance = road.min_distance
+            self.new_road.simple_road = road.simple_road
+            self.new_road.entire_road = road.entire_road
             self.del_pos = item
         self.tsp_backtrack.ClearAll()
 
