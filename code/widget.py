@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'widget.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
-# from PyQt5 import QtCore, QtGui, QtWidgets
 import threading
 from TSP_GA import *
 from TSP_BackTrack import *
@@ -17,7 +9,6 @@ from Settings import *
 from ByOrder import *
 from SaveConfirm import *
 from Bubble import *
-# 测试一下pycharm的Git
 # noinspection PyAttributeOutsideInit
 class MainWindow(QWidget):
     def __init__(self):
@@ -179,7 +170,6 @@ class MainWindow(QWidget):
         self.GetBetterRoad.setStyleSheet("background:rgb(197, 225, 184)")
         self.GetBetterRoad.setObjectName("GetBetterRoad")
         self.GetBetterRoad.clicked.connect(self.BetterRoad)
-
 
         self.Start = QPushButton(self)
         self.Start.setGeometry(QRect(100,310,95,50))
@@ -860,8 +850,6 @@ class MainWindow(QWidget):
 
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
 
-
-
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         if self.GetRoad.isEnabled() == False:
             for item in self.selected_pos:
@@ -888,6 +876,14 @@ class MainWindow(QWidget):
 
     #TODO fun
     def BetterRoad(self):
+
+        if self.GetRoad.isEnabled():
+            QMessageBox.warning(self,"警告","请先生成路径")
+            return
+        if len(self.selected_pos) <= 2:
+            QMessageBox.information(self,"提示","路径已经很短啦")
+            return
+
         self.cost_best = 1e9
         threading_list = []
         for item in self.selected_pos:
@@ -906,7 +902,6 @@ class MainWindow(QWidget):
         self.Main_text += f"{decrease_dis} m\n"
         self.Main_text += f"当前总距离：{round(self.cost_best,2)} m\n"
         self.Main_text += "预计用时:{}分{}秒\n".format(int(self.cost_best/66.6),int((self.cost_best/66.6 - int(self.cost_best/66.6))*60))
-
 
         self.MainText.setText(self.Main_text)
 
