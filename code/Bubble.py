@@ -3,16 +3,19 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import sys
 
+global Bubble_Opacity
+Bubble_Opacity = 0.5
+
 
 class MyDialog(QDialog):
-    def __init__(self,text):
+    def __init__(self, text):
         super(MyDialog, self).__init__(text)
 
     def enterEvent(self, a0: QEvent) -> None:
         self.setWindowOpacity(1)
 
     def leaveEvent(self, a0: QEvent) -> None:
-        self.setWindowOpacity(0.7)
+        self.setWindowOpacity(Bubble_Opacity)
 
 
 class Ui_Dialog(object):
@@ -40,18 +43,19 @@ class Ui_Dialog(object):
 
 
 class UI_Bubble(MyDialog):
-    def __init__(self, i):
+    def __init__(self, i, Opacity):
         super().__init__(None)
         self.x = []
         self.y = []
         self.ReadAxis()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-        desktop = QApplication.desktop()
         self.setGeometry(QRect(self.x[i] - 200 - 226, self.y[i] - 70, 240, 210))
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.FramelessWindowHint | Qt.Tool | Qt.WindowStaysOnTopHint)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setAttribute(Qt.WA_QuitOnClose, True)
+        global Bubble_Opacity
+        Bubble_Opacity = Opacity
 
     def ReadAxis(self):
         with open('../address/axis_x.txt') as f:
@@ -63,12 +67,6 @@ class UI_Bubble(MyDialog):
             text = f.read().split(' ')
             for item in text:
                 self.y.append(int(item))
-
-    def show_tip(self):
-        # TipUi.show_tip.tip = TipUi(text,desktop.width() / 2, desktop.height() / 2)
-        # TipUi.show_tip.tip.show()
-        # self.ui.pushButton.setText(text)
-        self.show()
 
 
 if __name__ == '__main__':

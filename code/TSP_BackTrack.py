@@ -67,7 +67,7 @@ class TSP_BackTrack:
         return_simple_road = []
         simple_road = []
 
-        print('所有可能路径如下:')
+        # print('所有可能路径如下:')
         # for path in self.res:
         #     for item in path:
         #         simple_road.append(item)
@@ -79,8 +79,8 @@ class TSP_BackTrack:
 
         for item in self.res[0]:
             simple_road.append(item)
-            print(item, '->', end=' ')
-        print(self.pos[0])
+            # print(item, '->', end=' ')
+        # print(self.pos[0])
         simple_road.append(self.pos[0])
         return_simple_road.append(simple_road)
         return return_simple_road
@@ -89,7 +89,7 @@ class TSP_BackTrack:
         return_entire_road = []
         en_road = []
         pre_point = -1
-        print('所有可能路径的完整路径如下:')
+        # print('所有可能路径的完整路径如下:')
         # for path in self.res:
         #     for item in path:
         #         if pre_point != -1:
@@ -117,17 +117,17 @@ class TSP_BackTrack:
                 self.get_two_point_road(pre_point, item)
                 for i in self.entire_road:
                     en_road.append(i)
-                    print(i, '->', end=' ')
+                    # print(i, '->', end=' ')
             pre_point = item
             en_road.append(item)
-            print(item, '->', end=' ')
+            # print(item, '->', end=' ')
         self.entire_road.clear()
         self.get_two_point_road(pre_point, self.pos[0])
         for i in self.entire_road:
             en_road.append(i)
-            print(i, '->', end=' ')
+            # print(i, '->', end=' ')
         en_road.append(self.pos[0])
-        print(self.pos[0])
+        # print(self.pos[0])
         return_entire_road.append(en_road)
         return return_entire_road
 
@@ -144,7 +144,7 @@ class TSP_BackTrack:
         used = np.zeros((len(self.pos),), dtype=int)
         used[0] = 1
         self.backtrack(path, self.pos[0], 0, used)
-        print('总路程:', self.cost, 'm')
+        # print('总路程:', self.cost, 'm')
         self.simple_road = self.print_simple_path()
         self.entire_road = self.print_entire_path()
 

@@ -21,6 +21,7 @@ class Ui_Settings(QMainWindow):
     Signal_model = pyqtSignal(int)
     Signal_Algorithm = pyqtSignal(int)
     Signal_AddofFigure = pyqtSignal(str)
+    Signal_Opacity = pyqtSignal(int)
     address = 'D:/Grade_3.1/DS/project/result'
 
     def __init__(self):
@@ -125,7 +126,7 @@ class Ui_Settings(QMainWindow):
         self.Others.setObjectName("Others")
 
         self.widget = QWidget(self.Others)
-        self.widget.setGeometry(QRect(20, 31, 104, 51))
+        self.widget.setGeometry(QRect(20, 21, 104, 43))
         self.widget.setObjectName("widget")
         self.verticalLayout = QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -136,6 +137,26 @@ class Ui_Settings(QMainWindow):
         self.showtb.toggled.connect(self.slot_tb)
         self.verticalLayout.addWidget(self.showtb)
 
+        self.TipofOpacity = QLabel(self.Others)
+        self.TipofOpacity.setGeometry(QRect(20, 70, 91, 16))
+        self.TipofOpacity.setObjectName("TipofOpacity")
+
+        self.BubbleOpacity = QSlider(self.Others)
+        self.BubbleOpacity.setGeometry(QRect(20, 90, 101, 22))
+        self.BubbleOpacity.setOrientation(Qt.Horizontal)
+        self.BubbleOpacity.setObjectName("BubbleOpacity")
+        self.BubbleOpacity.setMinimum(0)
+        self.BubbleOpacity.setMaximum(100)
+        self.BubbleOpacity.setValue(50)
+        self.BubbleOpacity.setTickInterval(10)
+        self.BubbleOpacity.setTickPosition(QSlider.TicksBelow)
+        self.BubbleOpacity.valueChanged.connect(self.ChangeOpacity)
+
+        self.opacity_value = QLabel(self.Others)
+        self.opacity_value.setGeometry(QRect(130, 90, 72, 15))
+        self.opacity_value.setObjectName("opacity_value")
+        self.opacity_value.setText(str(self.BubbleOpacity.value()))
+
         self.ChangeAdd = QPushButton(Settings)
         self.ChangeAdd.setGeometry(QRect(10, 420, 101, 35))
         self.ChangeAdd.clicked.connect(self.ChangeAddress)
@@ -145,7 +166,6 @@ class Ui_Settings(QMainWindow):
         self.Add_text.setGeometry(QRect(120, 420, 255, 35))
         font = QFont()
         font.setFamily("微软雅黑Light")
-        # font.setPointSize(10)
         self.Add_text.setFont(font)
         self.Add_text.setText(self.address)
         self.Add_text.setObjectName("Add")
@@ -181,6 +201,8 @@ class Ui_Settings(QMainWindow):
         self.GA.setText(_translate("Settings", "遗传算法"))
         self.AutoSelect.setText(_translate("Settings", "智能选择"))
         self.ChangeAdd.setText(_translate("Settings", "存储路径更改"))
+
+        self.TipofOpacity.setText(_translate("Settings", "气泡透明度："))
 
     def slot_bg(self):
         if self.NoBackGround.isChecked():
@@ -219,6 +241,10 @@ class Ui_Settings(QMainWindow):
             self.Add_text.setText(m)
             self.Signal_AddofFigure.emit(self.address)
 
+    def ChangeOpacity(self):
+        self.opacity_value.setText(str(self.BubbleOpacity.value()))
+        self.Signal_Opacity.emit(self.BubbleOpacity.value())
+
     def slot_confirm(self):
         reply = QMessageBox.information(self, '确认', '是否更改默认参数设置？', QMessageBox.Yes | QMessageBox.Cancel,
                                         QMessageBox.Yes)
@@ -251,6 +277,8 @@ class Ui_Settings(QMainWindow):
                 settings.append('0')
 
             settings.append(self.address)
+
+            settings.append(str(self.BubbleOpacity.value()))
 
             with open("config.txt", 'w') as f:
                 for i in settings:
@@ -289,6 +317,9 @@ class Ui_Settings(QMainWindow):
 
         self.Add_text.setText(text[4])
         self.address = text[4]
+
+        self.opacity_value.setText(text[5])
+        self.BubbleOpacity.setValue(int(text[5]))
 
 
 if __name__ == '__main__':

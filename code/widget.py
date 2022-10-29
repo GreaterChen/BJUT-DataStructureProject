@@ -27,6 +27,7 @@ class MainWindow(QWidget):
         self.simple_road = []
         self.entire_road = []
         self.min_distance = -1
+        self.BubbleOpacity = 0.50
 
         self.cost_best = 1e9
         self.simple_road_best = None
@@ -71,9 +72,9 @@ class MainWindow(QWidget):
         self.biaoti.setObjectName("biaoti")
 
         self.MainText = QTextBrowser(Widget)
-        self.MainText.setGeometry(QRect(1480, 260, 400, 800))
-        self.MainText.setMinimumSize(QSize(400, 800))
-        self.MainText.setMaximumSize(QSize(400, 800))
+        self.MainText.setGeometry(QRect(1480, 260, 400, 725))
+        self.MainText.setMinimumSize(QSize(400, 725))
+        self.MainText.setMaximumSize(QSize(400, 725))
         self.MainText.setObjectName("MainText")
         self.MainText.setStyleSheet("background:transparent;border-width:0;border-style:outset")
         font_MainText = QFont()
@@ -81,6 +82,7 @@ class MainWindow(QWidget):
         self.MainText.setFont(font_MainText)
         self.MainText.setText(
             "也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。")
+
         self.xiaohui = QLabel(Widget)
         self.xiaohui.setGeometry(QRect(200, 10, 111, 111))
         # self.xiaohui.setContextMenuPolicy(Qt.DefaultContextMenu)
@@ -644,7 +646,10 @@ class MainWindow(QWidget):
             for i in self.entire_road:
                 exec("text = self.A{}.toolTip()".format(i))
                 exec("entire_citys.append(text)")
-            self.Main_text = "路径如下：\n"
+
+            self.Main_text  = f"总距离：{round(self.min_distance, 2)} m\n"
+            self.Main_text += f"预计用时：{int(self.min_distance / 66.6)}分{int((self.min_distance / 66.6 - int(self.min_distance / 66.6)) * 60)}秒\n"
+            self.Main_text += "路径如下：\n"
             for i in simple_citys:
                 self.Main_text += '\t'
                 self.Main_text += i
@@ -655,6 +660,8 @@ class MainWindow(QWidget):
                 self.Main_text += '\t'
                 self.Main_text +=i
                 self.Main_text += '\n'
+
+
             self.MainText.setText(self.Main_text)
             d = DrawRoad(self.AddofFigure)
             d.DrawImage(self.entire_road, self.simple_road)
@@ -690,7 +697,6 @@ class MainWindow(QWidget):
     def ViewModel(self):
         self.guide_model.setEnabled(True)
         self.view_model.setEnabled(False)
-        # self.
 
     def ClearAll(self):
         if self.GetRoad.isEnabled() == False:
@@ -735,6 +741,7 @@ class MainWindow(QWidget):
         self.Settings.Signal_model.connect(self.ChangeModel)
         self.Settings.Signal_Algorithm.connect(self.ChangeAlgorithm)
         self.Settings.Signal_AddofFigure.connect(self.ChangeAdd)
+        self.Settings.Signal_Opacity.connect(self.ChangeOpacity)
 
     def ChangeBG(self, model):
         if model == 0:
@@ -757,15 +764,12 @@ class MainWindow(QWidget):
             self.MainText.setGraphicsEffect(effect_shadow)
             self.MainText.setStyleSheet("background:transparent;border-width:0;border-style:outset")
         else:
-            # if self.IsNBG:
             effect_shadow = QGraphicsDropShadowEffect(self)
             effect_shadow.setOffset(0, 0)
             effect_shadow.setBlurRadius(20)
             effect_shadow.setColor(Qt.gray)
             self.MainText.setGraphicsEffect(effect_shadow)
             self.MainText.setStyleSheet("background:")
-            # else:
-            #     self.MainText.setStyleSheet("background:")
 
     def ChangeModel(self, model):
         if model == 0:
@@ -785,7 +789,10 @@ class MainWindow(QWidget):
 
     def ChangeAdd(self,add):
         self.AddofFigure = add
-        print(self.AddofFigure)
+
+
+    def ChangeOpacity(self,value):
+        self.BubbleOpacity = value/100
 
     def getConfig(self):
         with open("config.txt") as f:
@@ -836,6 +843,8 @@ class MainWindow(QWidget):
 
         self.AddofFigure = text[4]
 
+        self.BubbleOpacity = int(text[5])/100
+
     def CloseBubble(self):
         print(self.simple_road_best)
         print(self.entire_road_best)
@@ -843,13 +852,15 @@ class MainWindow(QWidget):
     def DrawBubble(self):
         self.Bubble_pos = []
         for item in self.selected_pos:
-            exec("self.B{} = UI_Bubble({})".format(item,item))
-            exec("self.B{}.setWindowOpacity(0.7)".format(item))
+            exec("self.B{} = UI_Bubble({},{})".format(item,item,self.BubbleOpacity))
+            exec("self.B{}.setWindowOpacity({})".format(item,self.BubbleOpacity))
             exec("self.B{}.show()".format(item))
             exec(f"self.Bubble_pos.append([self.B{item}.pos().x(),self.B{item}.pos().y()])")
         print(self.Bubble_pos)
 
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
+
+
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         if self.GetRoad.isEnabled() == False:
@@ -880,23 +891,29 @@ class MainWindow(QWidget):
         self.cost_best = 1e9
         threading_list = []
         for item in self.selected_pos:
-            print("new")
             t = threading.Thread(target = self.CalculateBetter,args=(item,))
             t.start()
             threading_list.append(t)
-
         for t in threading_list:
             t.join()
-        self.Main_text = "已为您智能略去目的地："
+
+        self.Main_text += "\n已为您智能略去目的地："
 
         exec(f"text = self.A{self.del_pos}.toolTip()")
         exec("self.Main_text += text ")
+        self.Main_text += '\n减少的的距离为：'
+        decrease_dis = str(round(self.min_distance - self.cost_best,2))
+        self.Main_text += f"{decrease_dis} m\n"
+        self.Main_text += f"当前总距离：{round(self.cost_best,2)} m\n"
+        self.Main_text += "预计用时:{}分{}秒\n".format(int(self.cost_best/66.6),int((self.cost_best/66.6 - int(self.cost_best/66.6))*60))
+
+
         self.MainText.setText(self.Main_text)
 
         d = DrawRoad(self.AddofFigure)
         d.DrawImage(self.entire_road_best,self.simple_road_best)
         self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
-        exec(f"self.B{item}.close()")
+        exec(f"self.B{self.del_pos}.close()")
         self.selected_pos.remove(self.del_pos)
 
     def CalculateBetter(self,item):
@@ -904,8 +921,8 @@ class MainWindow(QWidget):
         pos.remove(item)
         simple_road, entire_road, min_distance = self.tsp_backtrack.tsp(pos)
         if min_distance < self.cost_best:
+            self.cost_best = min_distance
             self.simple_road_best = simple_road
             self.entire_road_best = entire_road
             self.del_pos = item
         self.tsp_backtrack.ClearAll()
-        print(f"{item}完成")
