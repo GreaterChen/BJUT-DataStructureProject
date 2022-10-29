@@ -92,6 +92,7 @@ class TSP_BackTrack:
             dis = self.mat_floyd[city1][city2]
             sum += dis
             self.road.signle_distance.append(sum)
+            self.road.GetCitysName()
 
         return self.road
 

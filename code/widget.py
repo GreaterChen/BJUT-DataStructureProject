@@ -15,6 +15,7 @@ class MainWindow(QWidget):
         super().__init__()
         self.selected_pos = []
         self.Main_text = ''
+        self.road = Route()
         self.simple_road = []
         self.entire_road = []
         self.min_distance = -1
@@ -34,6 +35,12 @@ class MainWindow(QWidget):
         self.getConfig()
         self.setShadow()
 
+        with open("../address/citys_name.txt","w") as f:
+            for i in range(47):
+                f.write(str(i))
+                f.write(' ')
+                exec(f"f.write(self.A{i}.toolTip())")
+                f.write('\n')
 
     def setupUi(self, Widget):
         # 主体界面
@@ -597,6 +604,7 @@ class MainWindow(QWidget):
         self.A41.setToolTip(_translate("Widget", "奥运场馆"))
         self.A42.setToolTip(_translate("Widget", "月亮湖"))
         self.A43.setToolTip(_translate("Widget", "知行楼(实训楼)"))
+        self.A44.setToolTip(_translate("Widget", "交通楼"))
         self.A45.setToolTip(_translate("Widget", "软件楼"))
         self.A46.setToolTip(_translate("Widget", "北门"))
 
@@ -612,7 +620,7 @@ class MainWindow(QWidget):
                     t = TSP_GA(self.selected_pos)
                     self.simple_road, self.entire_road, self.min_distance = t.run(20)
                 else:
-                    self.simple_road, self.entire_road, self.min_distance, self.signle_distance = self.tsp_backtrack.tsp(self.selected_pos)
+                    self.road = self.tsp_backtrack.run(self.selected_pos)
                     self.tsp_backtrack.ClearAll()
 
             elif self.AlgorithmModel == 1:
@@ -621,7 +629,7 @@ class MainWindow(QWidget):
 
             elif self.AlgorithmModel == 2:
                 t = TSP_BackTrack()
-                self.simple_road, self.entire_road, self.min_distance, self.signle_distance = self.tsp_backtrack.tsp(self.selected_pos)
+                self.road = self.tsp_backtrack.tsp(self.selected_pos)
                 t.ClearAll()
 
             simple_citys = []
