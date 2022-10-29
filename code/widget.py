@@ -41,9 +41,6 @@ class MainWindow(QWidget):
         Widget.resize(1920, 1080)
         Widget.setMinimumSize(QSize(1920, 1080))
         Widget.setMaximumSize(QSize(1920, 1080))
-        # palette = QPalette()
-        # palette.setBrush(QPalette.Background, QBrush(QPixmap("../images/background_1.jpg")))
-        # self.setPalette(palette)
 
         # 大地图
         self.schoolmap = QLabel(Widget)
@@ -156,7 +153,7 @@ class MainWindow(QWidget):
         self.GetBack.setMinimumSize(QSize(95, 50))
         self.GetBack.setMaximumSize(QSize(95, 50))
         self.GetBack.setObjectName("GetBack")
-        self.GetBack.clicked.connect(self.CloseBubble)
+        self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
 
         #TODO 获取路线的按钮
@@ -835,9 +832,12 @@ class MainWindow(QWidget):
 
         self.BubbleOpacity = int(text[5])/100
 
-    def CloseBubble(self):
-        print(self.simple_road_best)
-        print(self.entire_road_best)
+    def GetBackStep(self):#TODO
+        self.Main_text += "已删除："
+        exec(f"text = self.A{self.selected_pos[-1]}.toolTip()\n")
+        exec("self.Main_text += text")
+        self.MainText.setText(self.Main_text)
+        self.selected_pos.pop()
 
     def DrawBubble(self):
         self.Bubble_pos = []

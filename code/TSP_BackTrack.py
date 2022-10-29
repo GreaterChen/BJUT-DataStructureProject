@@ -67,16 +67,6 @@ class TSP_BackTrack:
         return_simple_road = []
         simple_road = []
 
-        # print('所有可能路径如下:')
-        # for path in self.res:
-        #     for item in path:
-        #         simple_road.append(item)
-        #         print(item, '->', end=' ')
-        #     print(self.pos[0])
-        #     simple_road.append(self.pos[0])
-        # return_simple_road.append(simple_road)
-        # return return_simple_road
-
         for item in self.res[0]:
             simple_road.append(item)
             # print(item, '->', end=' ')
@@ -89,27 +79,6 @@ class TSP_BackTrack:
         return_entire_road = []
         en_road = []
         pre_point = -1
-        # print('所有可能路径的完整路径如下:')
-        # for path in self.res:
-        #     for item in path:
-        #         if pre_point != -1:
-        #             self.entire_road.clear()
-        #             self.get_two_point_road(pre_point, item)
-        #             for i in self.entire_road:
-        #                 en_road.append(i)
-        #                 print(i, '->', end=' ')
-        #         pre_point = item
-        #         en_road.append(item)
-        #         print(item, '->', end=' ')
-        #     self.entire_road.clear()
-        #     self.get_two_point_road(pre_point, self.pos[0])
-        #     for i in self.entire_road:
-        #         en_road.append(i)
-        #         print(i, '->', end=' ')
-        #     en_road.append(self.pos[0])
-        #     print(self.pos[0])
-        # return_entire_road.append(en_road)
-        # return return_entire_road
 
         for item in self.res[0]:
             if pre_point != -1:
