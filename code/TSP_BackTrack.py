@@ -1,3 +1,5 @@
+import signal
+
 import numpy as np
 
 
@@ -71,7 +73,7 @@ class TSP_BackTrack:
             simple_road.append(item)
             # print(item, '->', end=' ')
         # print(self.pos[0])
-        simple_road.append(self.pos[0])
+        # simple_road.append(self.pos[0])
         return_simple_road.append(simple_road)
         return return_simple_road
 
@@ -95,7 +97,6 @@ class TSP_BackTrack:
         for i in self.entire_road:
             en_road.append(i)
             # print(i, '->', end=' ')
-        en_road.append(self.pos[0])
         # print(self.pos[0])
         return_entire_road.append(en_road)
         return return_entire_road
@@ -113,11 +114,24 @@ class TSP_BackTrack:
         used = np.zeros((len(self.pos),), dtype=int)
         used[0] = 1
         self.backtrack(path, self.pos[0], 0, used)
-        # print('总路程:', self.cost, 'm')
         self.simple_road = self.print_simple_path()
         self.entire_road = self.print_entire_path()
+        single_distance = []
 
-        return self.simple_road[0], self.entire_road[0], self.cost
+        sum = 0
+        for i in range(len(self.simple_road[0])):
+            if i == 0:
+                single_distance.append(self.cost)
+                continue
+
+            city1 = self.simple_road[0][i - 1]
+            city2 = self.simple_road[0][i]
+
+            dis = self.mat_floyd[city1][city2]
+            sum += dis
+            single_distance.append(sum)
+
+        return self.simple_road[0], self.entire_road[0], self.cost, single_distance
 
 
 if __name__ == '__main__':

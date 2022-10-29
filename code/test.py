@@ -1,7 +1,4 @@
-import threading
-import time
-
+from PyQt5.QtCore import *
 if __name__ == '__main__':
-    pos = [1, 2, 3, 4]
-    pos.remove(4)
-    print(pos)
+    now = QTime.currentTime()
+    print(now.addSecs(200).toString(Qt.DefaultLocaleLongDate))

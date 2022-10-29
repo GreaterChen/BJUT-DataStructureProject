@@ -156,7 +156,7 @@ class MainWindow(QWidget):
         self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
 
-        #TODO 获取路线的按钮
+        #TODO 开始按钮
         self.ChangeRoad = QPushButton(self)
         self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
         self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
@@ -172,6 +172,7 @@ class MainWindow(QWidget):
         self.Start.setGeometry(QRect(100,310,95,50))
         self.Start.setStyleSheet("background:rgb(197, 225, 184)")
         self.Start.setObjectName("Start")
+        self.Start.clicked.connect(self.Go)
 
         # 清除全部选择
         self.clearall = QPushButton(self.layoutWidget)
@@ -547,7 +548,7 @@ class MainWindow(QWidget):
         self.TSP_button.setText(_translate("Widget", "TSP"))
         self.TSPwr_button.setText(_translate("Widget", "TSP without return"))
         self.by_order_button.setText(_translate("Widget", "by order"))
-        #TODO 控件命名
+
         self.GetBetterRoad.setText(_translate("Widget","简化路线"))
         self.Start.setText(_translate("Widget","出发"))
         self.ChangeRoad.setText(_translate("Widget","换条路线"))
@@ -600,34 +601,33 @@ class MainWindow(QWidget):
         self.A46.setToolTip(_translate("Widget", "北门"))
 
     def get_TSP(self):
-        print("选择的序列:", self.selected_pos)
         if self.TSP_button.isChecked():
             if len(self.selected_pos) == 0 or len(self.selected_pos) == 1:
                 QMessageBox.warning(self, '警告', '请选择至少两个目的地')
                 return
             self.GetRoad.setEnabled(False)
+            self.GetBack.setEnabled(False)
             if self.AlgorithmModel == 0:
                 if len(self.selected_pos) >= 8:
                     t = TSP_GA(self.selected_pos)
                     self.simple_road, self.entire_road, self.min_distance = t.run(20)
                 else:
-                    self.simple_road, self.entire_road, self.min_distance = self.tsp_backtrack.tsp(self.selected_pos)
+                    self.simple_road, self.entire_road, self.min_distance, self.signle_distance = self.tsp_backtrack.tsp(self.selected_pos)
                     self.tsp_backtrack.ClearAll()
+
             elif self.AlgorithmModel == 1:
                 t = TSP_GA(self.selected_pos)
                 self.simple_road, self.entire_road, self.min_distance = t.run(10)
 
             elif self.AlgorithmModel == 2:
                 t = TSP_BackTrack()
-                self.simple_road, self.entire_road, self.min_distance = self.tsp_backtrack.tsp(self.selected_pos)
+                self.simple_road, self.entire_road, self.min_distance, self.signle_distance = self.tsp_backtrack.tsp(self.selected_pos)
                 t.ClearAll()
 
             simple_citys = []
             for i in self.simple_road:
                 exec("text = self.A{}.toolTip()".format(i))
                 exec("simple_citys.append(text)")
-
-            print(simple_citys)
 
             entire_citys = []
             for i in self.entire_road:
@@ -648,9 +648,9 @@ class MainWindow(QWidget):
                 self.Main_text +=i
                 self.Main_text += '\n'
 
-
             self.MainText.setText(self.Main_text)
             d = DrawRoad(self.AddofFigure)
+
             d.DrawImage(self.entire_road, self.simple_road)
             self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
         elif self.TSPwr_button.isChecked():
@@ -658,8 +658,6 @@ class MainWindow(QWidget):
         elif self.by_order_button.isChecked():
             order = ByOrder(self.selected_pos)
             self.simple_road, self.entire_road, self.min_distance = order.GetRoad()
-            print(self.simple_road)
-            print(self.entire_road)
             self.Main_text = str(self.simple_road) + '\n' + str(self.entire_road)
             self.MainText.setText(self.Main_text)
             d.DrawImage_order(self.entire_road, self.simple_road)
@@ -671,6 +669,7 @@ class MainWindow(QWidget):
         t = TipUi('结果已保存', desktop.width() / 2, desktop.height() / 2)
         t.show()
         self.DrawBubble()
+
 
     def showTime(self):
         Time = QDateTime.currentDateTime()  # 系统时间
@@ -704,7 +703,6 @@ class MainWindow(QWidget):
         name = btn.objectName()
         real_name = btn.toolTip()
         num = int(name[1:])
-        print(name, num)
         if num in self.selected_pos:
             self.selected_pos.remove(num)
             string = '已删除:' + real_name
@@ -832,23 +830,26 @@ class MainWindow(QWidget):
 
         self.BubbleOpacity = int(text[5])/100
 
-    def GetBackStep(self):#TODO
+    def GetBackStep(self):
         self.Main_text += "已删除："
         exec(f"text = self.A{self.selected_pos[-1]}.toolTip()\n")
         exec("self.Main_text += text")
         self.MainText.setText(self.Main_text)
         self.selected_pos.pop()
 
+    #TODO 绘制气泡
     def DrawBubble(self):
         self.Bubble_pos = []
-        for item in self.selected_pos:
-            exec("self.B{} = UI_Bubble({},{})".format(item,item,self.BubbleOpacity))
-            exec("self.B{}.setWindowOpacity({})".format(item,self.BubbleOpacity))
-            exec("self.B{}.show()".format(item))
+
+        for i,item in enumerate(self.simple_road):
+            exec(f"name = self.A{item}.toolTip()")
+            exec(f"self.B{item} = UI_Bubble(item,self.BubbleOpacity,name,self.signle_distance[i])")
+            exec(f"self.B{item}.setWindowOpacity(self.BubbleOpacity)")
+            exec(f"self.B{item}.show()")
             exec(f"self.Bubble_pos.append([self.B{item}.pos().x(),self.B{item}.pos().y()])")
-        print(self.Bubble_pos)
 
         exec("self.B{}.exec_()".format(self.selected_pos[0]))
+
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         if self.GetRoad.isEnabled() == False:
@@ -874,9 +875,8 @@ class MainWindow(QWidget):
             for i,item in enumerate(self.selected_pos):
                 exec(f"self.B{item}.move(self.Bubble_pos[{i}][0] + self.pos().x(),self.Bubble_pos[{i}][1] + self.pos().y())")
 
-    #TODO fun
-    def BetterRoad(self):
 
+    def BetterRoad(self):
         if self.GetRoad.isEnabled():
             QMessageBox.warning(self,"警告","请先生成路径")
             return
@@ -910,14 +910,22 @@ class MainWindow(QWidget):
         self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
         exec(f"self.B{self.del_pos}.close()")
         self.selected_pos.remove(self.del_pos)
+        for item in self.selected_pos:
+            exec(f"self.B{item}.GoGoGo()")
+
+
 
     def CalculateBetter(self,item):
         pos = self.selected_pos.copy()
         pos.remove(item)
-        simple_road, entire_road, min_distance = self.tsp_backtrack.tsp(pos)
+        simple_road, entire_road, min_distance,_ = self.tsp_backtrack.tsp(pos)
         if min_distance < self.cost_best:
             self.cost_best = min_distance
             self.simple_road_best = simple_road
             self.entire_road_best = entire_road
             self.del_pos = item
         self.tsp_backtrack.ClearAll()
+
+    def Go(self):
+        for item in self.selected_pos:
+            exec(f"self.B{item}.GoGoGo()")

@@ -32,9 +32,10 @@ class DrawRoad:
         return x - self.x_base, y - self.y_base
 
     def DrawImage(self, entired_res, simple_res):
-        pos = entired_res
+
+        pos = entired_res.copy()
         pos.append(pos[0])
-        simple_pos = simple_res
+        simple_pos = simple_res.copy()
         simple_pos.append(simple_pos[0])
         for i in range(len(pos) - 1):
             x1, y1 = self.axis_change(self.x[pos[i]], self.y[pos[i]])
