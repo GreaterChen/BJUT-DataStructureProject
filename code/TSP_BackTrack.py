@@ -1,15 +1,11 @@
 import signal
 
 import numpy as np
+from Route import *
 
 
 class TSP_BackTrack:
-    cost = 1e9  # 总路长
-    pos = []  # 存储若干目的地
-    res = []
-
-    simple_road = []
-    entire_road = []
+    road = Route()
     mat = []  # 邻接矩阵
     mat_floyd = []  # 弗洛伊德矩阵
     mat_pre = []  # 弗洛伊德前驱结点
@@ -40,21 +36,15 @@ class TSP_BackTrack:
             self.mat_pre = np.array(self.mat_pre).reshape((47, 47))
 
     def ClearAll(self):
-        self.cost = 1e9
-        self.pos.clear()
-        self.res.clear()
-        self.simple_road.clear()
-        self.entire_road.clear()
+        self.road.clear()
 
     def backtrack(self, path, come, sum, used):
         if len(path) == len(self.pos):
             sum += self.mat_floyd[come][self.pos[0]]
-            if sum < self.cost:
-                self.cost = sum
-                self.res.clear()
-                self.res.append(path.copy())
-            elif sum == self.cost:
-                self.res.append(path.copy())
+            if sum < self.road.min_distance:
+                self.road.min_distance = sum
+                self.road.simple_road = path.copy()
+                self.road.simple_road.append(self.pos[0])
             return
         for i in range(len(self.pos)):
             if used[i]:
@@ -65,77 +55,52 @@ class TSP_BackTrack:
             used[i] = 0
             path.pop()
 
-    def print_simple_path(self):
-        return_simple_road = []
-        simple_road = []
-
-        for item in self.res[0]:
-            simple_road.append(item)
-            # print(item, '->', end=' ')
-        # print(self.pos[0])
-        # simple_road.append(self.pos[0])
-        return_simple_road.append(simple_road)
-        return return_simple_road
-
-    def print_entire_path(self):
-        return_entire_road = []
+    def get_entire_path(self):
         en_road = []
         pre_point = -1
 
-        for item in self.res[0]:
+        for item in self.road.simple_road:
             if pre_point != -1:
-                self.entire_road.clear()
                 self.get_two_point_road(pre_point, item)
-                for i in self.entire_road:
-                    en_road.append(i)
-                    # print(i, '->', end=' ')
             pre_point = item
-            en_road.append(item)
-            # print(item, '->', end=' ')
-        self.entire_road.clear()
-        self.get_two_point_road(pre_point, self.pos[0])
-        for i in self.entire_road:
-            en_road.append(i)
-            # print(i, '->', end=' ')
-        # print(self.pos[0])
-        return_entire_road.append(en_road)
-        return return_entire_road
+            self.road.entire_road.append(item)
 
     def get_two_point_road(self, i, j):
         if j != self.mat_pre[i][j]:
             j = self.mat_pre[i][j]
             self.get_two_point_road(i, j)
-            self.entire_road.append(j)
+            self.road.entire_road.append(j)
 
-    def tsp(self, nums):
+    def run(self, nums):
         self.pos = nums.copy()
 
         path = [self.pos[0]]
         used = np.zeros((len(self.pos),), dtype=int)
         used[0] = 1
         self.backtrack(path, self.pos[0], 0, used)
-        self.simple_road = self.print_simple_path()
-        self.entire_road = self.print_entire_path()
-        single_distance = []
+        self.get_entire_path()
 
         sum = 0
-        for i in range(len(self.simple_road[0])):
+        for i in range(len(self.road.simple_road)-1):
             if i == 0:
-                single_distance.append(self.cost)
+                self.road.signle_distance.append(self.road.min_distance)
                 continue
 
-            city1 = self.simple_road[0][i - 1]
-            city2 = self.simple_road[0][i]
+            city1 = self.road.simple_road[i - 1]
+            city2 = self.road.simple_road[i]
 
             dis = self.mat_floyd[city1][city2]
             sum += dis
-            single_distance.append(sum)
+            self.road.signle_distance.append(sum)
 
-        return self.simple_road[0], self.entire_road[0], self.cost, single_distance
+        return self.road
 
 
 if __name__ == '__main__':
     t = TSP_BackTrack()
-    s, e, _ = t.tsp([3, 21, 39, 41, 34, 32, 18, 17, 16])
-    print(s)
-    print(e)
+    t.run([17, 22, 41, 33])
+    print(t.road.simple_road)
+    print(t.road.entire_road)
+    print(t.road.min_distance)
+    print(t.road.signle_distance)
+
