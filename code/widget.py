@@ -888,6 +888,7 @@ class MainWindow(QWidget):
         self.new_road.GetCitysName()
 
         self.Main_text += "\n已为您智能略去目的地："
+        print(self.del_pos)
         exec(f"text = self.A{self.del_pos}.toolTip()")
         exec("self.Main_text += text ")
         self.Main_text += '\n减少的的距离为：'
@@ -914,9 +915,7 @@ class MainWindow(QWidget):
         pos.remove(item)
         road = copy.deepcopy(self.tsp_backtrack.run(pos))
         if road.min_distance < self.new_road.min_distance:
-            self.new_road.min_distance = road.min_distance
-            self.new_road.simple_road = road.simple_road
-            self.new_road.entire_road = road.entire_road
+            self.new_road = road
             self.del_pos = item
         self.tsp_backtrack.ClearAll()
 

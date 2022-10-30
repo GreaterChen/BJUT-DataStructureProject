@@ -23,6 +23,7 @@ class Route:
             for item in text:
                 city = item.split(' ')
                 self.citys.append(city)
+        f.close()
 
         for item in self.simple_road:
             self.simple_citys_name.append(self.citys[item][1])
