@@ -9,6 +9,13 @@ class Route:
         self.simple_citys_name = []
         self.entire_citys_name = []
 
+        with open("../address/citys_name.txt") as f:
+            text = f.read().split('\n')
+            for item in text:
+                city = item.split(' ')
+                self.citys.append(city)
+        f.close()
+
     def clear(self):
         self.simple_road = []
         self.entire_road = []
@@ -18,12 +25,6 @@ class Route:
     def GetCitysName(self):
         self.simple_citys_name.clear()
         self.entire_citys_name.clear()
-        with open("../address/citys_name.txt") as f:
-            text = f.read().split('\n')
-            for item in text:
-                city = item.split(' ')
-                self.citys.append(city)
-        f.close()
 
         for item in self.simple_road:
             self.simple_citys_name.append(self.citys[item][1])

@@ -35,6 +35,16 @@ class TSP:
     def ClearAll(self):
         self.road.clear()
 
+    def get_min_distance(self):
+        sum = 0.0
+        road = self.road.simple_road[:-1]
+        for item in range(len(road)):
+            city1 = road[item - 1]
+            city2 = road[item]
+            dis = self.mat_floyd[city1][city2]
+            sum += dis
+        self.road.min_distance = sum
+
     def get_entire_path(self):
         pre_point = -1
         for item in self.road.simple_road:
