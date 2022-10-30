@@ -5,15 +5,22 @@ import time
 import numpy as np
 
 from geopy.distance import geodesic
+from Route import *
 
 SCORE_NONE = -1
 
 
 def main():
     start = time.time()
-    pos = [18, 23, 22, 41, 32]
+    pos = [17, 22, 41, 33]
     tsp = TSP_GA(pos)
-    tsp.run(30)
+    road = tsp.run(30)
+    print(road.simple_road)
+    print(road.entire_road)
+    print(road.min_distance)
+    print(road.simple_citys_name)
+    print(road.entire_citys_name)
+    print(road.signle_distance)
     end = time.time()
     print(end - start, 's')
 
@@ -24,9 +31,10 @@ class TSP_GA(object):
         self.citys = []
         self.selected_pos = selected_pos
         self.best_distance = -1
-        self.simple_road = []
-        self.entire_road = []
-        self.floyd_mat = []
+
+        self.road = Route()
+
+        self.mat_floyd = []
         self.pre_mat = []
         self.initCitys()
         self.individual_road = []
@@ -55,8 +63,8 @@ class TSP_GA(object):
             entired_text = floyd_mat.read()
             for row in entired_text.split('\n'):
                 for item in row.rstrip().split(' '):
-                    self.floyd_mat.append(float(item))
-            self.floyd_mat = np.array(self.floyd_mat).reshape((47, 47))
+                    self.mat_floyd.append(float(item))
+            self.mat_floyd = np.array(self.mat_floyd).reshape((47, 47))
 
         with open('../address/pre_mat.txt') as pre_mat:
             entired_text = pre_mat.read()
@@ -92,35 +100,61 @@ class TSP_GA(object):
             self.ga.next()
             self.best_distance = self.distance(self.ga.best.gene)
             n -= 1
-        return self.get_simple_road(), self.get_entire_road(), self.best_distance
 
-    def get_simple_road(self):
-        # print("经过%d次迭代，最优解距离为：%f" % (self.ga.generation, self.best_distance))
-        # print("遍历城市顺序为：", )
-        for i in self.ga.best.gene:
-            self.simple_road.append(self.citys[i][3])
-        return self.simple_road
+        s = self.ga.best.gene
+        t = []
+        index = -1
+        for i in range(len(s)):
+            if s[i] != self.selected_pos[0]:
+                continue
+            index = i
+            break
 
-    def get_entire_road(self):
-        for i in range(-1, len(self.simple_road) - 1):
-            city1 = self.simple_road[i]
-            city2 = self.simple_road[i + 1]
-            self.entire_road.append(city1)
-            self.get_two_point_road(city1, city2)
+        for i in range(len(s)):
+            t.append(s[index])
+            index = (index + 1) % len(s)
 
-        return self.entire_road
+        t.append(self.selected_pos[0])
+        self.road.simple_road = t
+        self.get_entire_path()
+        self.road.min_distance = self.best_distance
+        self.GetSignalDistance()
+        self.road.GetCitysName()
+        return self.road
+
+    def get_entire_path(self):
+        pre_point = -1
+        for item in self.road.simple_road:
+            if pre_point != -1:
+                self.get_two_point_road(pre_point, item)
+            pre_point = item
+            self.road.entire_road.append(item)
 
     def get_two_point_road(self, i, j, model=0):
         if model == 0:
             if j != self.pre_mat[i][j]:
                 j = self.pre_mat[i][j]
                 self.get_two_point_road(i, j)
-                self.entire_road.append(j)
+                self.road.entire_road.append(j)
         elif model == 1:
             if j != self.pre_mat[i][j]:
                 j = self.pre_mat[i][j]
-                self.get_two_point_road(i,j,1)
+                self.get_two_point_road(i, j, 1)
                 self.individual_road.append(j)
+
+    def GetSignalDistance(self):
+        sum = 0
+        for i in range(len(self.road.simple_road) - 1):
+            if i == 0:
+                self.road.signle_distance.append(self.road.min_distance)
+                continue
+
+            city1 = self.road.simple_road[i - 1]
+            city2 = self.road.simple_road[i]
+
+            dis = self.mat_floyd[city1][city2]
+            sum += dis
+            self.road.signle_distance.append(sum)
 
 
 class Life(object):
@@ -155,7 +189,6 @@ class GA(object):
         self.lives = []
         for i in range(self.lifeCount):
             gene = self.selected_pos.copy()
-            random.shuffle(gene)
             life = Life(gene)
             self.lives.append(life)
 

@@ -56,7 +56,6 @@ class TSP_BackTrack:
             path.pop()
 
     def get_entire_path(self):
-        en_road = []
         pre_point = -1
 
         for item in self.road.simple_road:
@@ -71,15 +70,7 @@ class TSP_BackTrack:
             self.get_two_point_road(i, j)
             self.road.entire_road.append(j)
 
-    def run(self, nums):
-        self.pos = nums.copy()
-
-        path = [self.pos[0]]
-        used = np.zeros((len(self.pos),), dtype=int)
-        used[0] = 1
-        self.backtrack(path, self.pos[0], 0, used)
-        self.get_entire_path()
-
+    def GetSignalDistance(self):
         sum = 0
         for i in range(len(self.road.simple_road) - 1):
             if i == 0:
@@ -92,7 +83,18 @@ class TSP_BackTrack:
             dis = self.mat_floyd[city1][city2]
             sum += dis
             self.road.signle_distance.append(sum)
-            self.road.GetCitysName()
+
+
+    def run(self, nums):
+        self.pos = nums.copy()
+
+        path = [self.pos[0]]
+        used = np.zeros((len(self.pos),), dtype=int)
+        used[0] = 1
+        self.backtrack(path, self.pos[0], 0, used)
+        self.get_entire_path()
+        self.GetSignalDistance()
+        self.road.GetCitysName()
         return self.road
 
 

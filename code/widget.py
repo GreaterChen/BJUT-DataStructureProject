@@ -628,7 +628,7 @@ class MainWindow(QWidget):
             for i in self.road.simple_citys_name:
                 self.Main_text += '\t'
                 self.Main_text += i
-                self.Main_text += '-->\n'
+                self.Main_text += '->\n'
 
             self.Main_text += '\t'
             self.Main_text += self.road.simple_citys_name[0]
@@ -638,7 +638,7 @@ class MainWindow(QWidget):
             for i in self.road.entire_citys_name:
                 self.Main_text += '\t'
                 self.Main_text += i
-                self.Main_text += '-->\n'
+                self.Main_text += '->\n'
 
             self.Main_text += '\t'
             self.Main_text += self.road.entire_citys_name[0]

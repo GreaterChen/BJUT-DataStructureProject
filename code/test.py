@@ -1,5 +1,10 @@
+import random
+
 from PyQt5.QtCore import *
 
-
-s = [1,2,3,4,5]
-print(s[1:])
+gen = [1, 4, 2, 6, 8]
+t = gen[1:]
+random.shuffle(t)
+print(t)
+t.insert(0, gen[0])
+print(t)
