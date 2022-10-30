@@ -639,24 +639,22 @@ class MainWindow(QWidget):
 
     def PrintRoad(self, road):
         self.Main_text += "路径如下：\n"
-        for i in road.simple_citys_name:
+        print(road.simple_citys_name)
+        for cnt,i in enumerate(road.simple_citys_name):
             self.Main_text += '\t'
             self.Main_text += i
-            self.Main_text += '->\n'
-
-        self.Main_text += '\t'
-        self.Main_text += road.simple_citys_name[0]
-        self.Main_text += '\n'
+            if cnt != len(road.simple_citys_name) - 1:
+                self.Main_text += '->'
+            self.Main_text += '\n'
 
         self.Main_text += "详细路径如下：\n"
-        for i in road.entire_citys_name:
+        for cnt,i in enumerate(road.entire_citys_name):
             self.Main_text += '\t'
             self.Main_text += i
-            self.Main_text += '->\n'
+            if cnt != len(road.entire_citys_name) - 1:
+                self.Main_text += '->'
+            self.Main_text += '\n'
 
-        self.Main_text += '\t'
-        self.Main_text += road.entire_citys_name[0]
-        self.Main_text += '\n'
         self.MainText.setText(self.Main_text)
 
     def showTime(self):
@@ -683,6 +681,7 @@ class MainWindow(QWidget):
         self.MainText.setText('已清空所有选择')
 
         self.GetRoad.setEnabled(True)
+        self.GetBack.setEnabled(True)
         self.schoolmap.setPixmap(QPixmap("../images/school_map.jpg"))
 
     def BeSelected(self):
