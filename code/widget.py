@@ -624,28 +624,7 @@ class MainWindow(QWidget):
 
             self.Main_text = f"总距离：{round(self.road.min_distance, 2)} m\n"
             self.Main_text += f"预计用时：{int(self.road.min_distance / 66.6)}分{int((self.road.min_distance / 66.6 - int(self.road.min_distance / 66.6)) * 60)}秒\n"
-            self.Main_text += "路径如下：\n"
-            for i in self.road.simple_citys_name:
-                self.Main_text += '\t'
-                self.Main_text += i
-                self.Main_text += '->\n'
-
-            self.Main_text += '\t'
-            self.Main_text += self.road.simple_citys_name[0]
-            self.Main_text += '\n'
-
-            self.Main_text += "详细路径如下：\n"
-            for i in self.road.entire_citys_name:
-                self.Main_text += '\t'
-                self.Main_text += i
-                self.Main_text += '->\n'
-
-            self.Main_text += '\t'
-            self.Main_text += self.road.entire_citys_name[0]
-            self.Main_text += '\n'
-
-
-            self.MainText.setText(self.Main_text)
+            self.PrintRoad(self.road)
 
             d = DrawRoad(self.AddofFigure)
             d.DrawImage(self.road)
@@ -667,6 +646,28 @@ class MainWindow(QWidget):
         t = TipUi('结果已保存', desktop.width() / 2, desktop.height() / 2)
         t.show()
         self.DrawBubble()
+
+    def PrintRoad(self,road):
+        self.Main_text += "路径如下：\n"
+        for i in road.simple_citys_name:
+            self.Main_text += '\t'
+            self.Main_text += i
+            self.Main_text += '->\n'
+
+        self.Main_text += '\t'
+        self.Main_text += road.simple_citys_name[0]
+        self.Main_text += '\n'
+
+        self.Main_text += "详细路径如下：\n"
+        for i in road.entire_citys_name:
+            self.Main_text += '\t'
+            self.Main_text += i
+            self.Main_text += '->\n'
+
+        self.Main_text += '\t'
+        self.Main_text += road.entire_citys_name[0]
+        self.Main_text += '\n'
+        self.MainText.setText(self.Main_text)
 
     def showTime(self):
         Time = QDateTime.currentDateTime()  # 系统时间
@@ -895,6 +896,8 @@ class MainWindow(QWidget):
         self.Main_text += f"当前总距离：{round(self.new_road.min_distance, 2)} m\n"
         self.Main_text += "预计用时:{}分{}秒\n".format(int(self.new_road.min_distance / 66.6),
                                                  int((self.new_road.min_distance / 66.6 - int(self.new_road.min_distance / 66.6)) * 60))
+
+        self.PrintRoad(self.new_road)
 
         self.MainText.setText(self.Main_text)
 
