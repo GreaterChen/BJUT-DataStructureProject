@@ -27,11 +27,11 @@ class Route:
 
         for item in self.simple_road:
             self.simple_citys_name.append(self.citys[item][1])
-        self.simple_citys_name.pop()
+        # self.simple_citys_name.pop()
 
         for item in self.entire_road:
             self.entire_citys_name.append(self.citys[item][1])
-        self.entire_citys_name.pop()
+        # self.entire_citys_name.pop()
 
     def PrintInfo(self):
         print("简单路径：", self.simple_road)

@@ -20,8 +20,6 @@ class MainWindow(QWidget):
         self.road = Route()
         self.BubbleOpacity = 0.50
 
-        self.del_pos = None
-
         self.tsp_backtrack = TSP_BackTrack()
         self.IsNBG = False
         self.AddofFigure = "D:\\Grade_3.1\\DS\\project\\result"
@@ -887,9 +885,10 @@ class MainWindow(QWidget):
             t.join()
         self.new_road.GetCitysName()
 
+        del_index = list(set(self.selected_pos)-set(self.new_road.simple_road))[0]
+
         self.Main_text += "\n已为您智能略去目的地："
-        print(self.del_pos)
-        exec(f"text = self.A{self.del_pos}.toolTip()")
+        exec(f"text = self.A{del_index}.toolTip()")
         exec("self.Main_text += text ")
         self.Main_text += '\n减少的的距离为：'
         decrease_dis = str(round(self.road.min_distance - self.new_road.min_distance, 2))
@@ -899,14 +898,14 @@ class MainWindow(QWidget):
                                                  int((self.new_road.min_distance / 66.6 - int(self.new_road.min_distance / 66.6)) * 60))
 
         self.PrintRoad(self.new_road)
-
         self.MainText.setText(self.Main_text)
-
+        print(self.new_road.simple_road)
         d = DrawRoad(self.AddofFigure)
         d.DrawImage(self.new_road)
         self.schoolmap.setPixmap(QPixmap("../images/school_map_change.jpg"))
-        exec(f"self.B{self.del_pos}.close()")
-        self.selected_pos.remove(self.del_pos)
+        print("被删除的节点为：",del_index)
+        exec(f"self.B{del_index}.close()")
+        self.selected_pos.remove(del_index)
         for item in self.selected_pos:
             exec(f"self.B{item}.GoGoGo()")
 
@@ -916,7 +915,6 @@ class MainWindow(QWidget):
         road = copy.deepcopy(self.tsp_backtrack.run(pos))
         if road.min_distance < self.new_road.min_distance:
             self.new_road = road
-            self.del_pos = item
         self.tsp_backtrack.ClearAll()
 
     def Go(self):

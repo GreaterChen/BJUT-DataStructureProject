@@ -52,11 +52,9 @@ class TSP_GA(TSP):
 
     def distance(self, road):
         sum = 0.0
-        print(road)
         for i in range(len(road)):
             city1 = road[i-1]
             city2 = road[i]
-            print((city1,city2))
             dis = self.mat_floyd[city1][city2]
             sum += dis
         return sum

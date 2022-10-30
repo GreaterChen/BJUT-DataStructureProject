@@ -11,7 +11,6 @@ class DrawRoad:
 
     def __init__(self, add):
         self.add = add + '/res.jpg'
-        print(self.add)
         self.img = cv2.imread('../images/school_map.jpg')
         self.ReadAxis()
 
@@ -33,8 +32,6 @@ class DrawRoad:
         return x - self.x_base, y - self.y_base
 
     def DrawImage(self, road: Route):
-        print(road.entire_road)
-        print(road.simple_road)
         pos = road.entire_road.copy()
         simple_pos = road.simple_road.copy()
         for i in range(len(pos) - 1):

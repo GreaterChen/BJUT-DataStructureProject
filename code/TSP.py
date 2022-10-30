@@ -37,7 +37,6 @@ class TSP:
 
     def get_entire_path(self):
         pre_point = -1
-        print("!!!", self.road.simple_road)
         for item in self.road.simple_road:
             if pre_point != -1:
                 self.get_two_point_road(pre_point, item)
