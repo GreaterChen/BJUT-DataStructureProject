@@ -32,6 +32,14 @@ class Route:
             self.entire_citys_name.append(self.citys[item][1])
         self.entire_citys_name.pop()
 
+    def PrintInfo(self):
+        print("简单路径：", self.simple_road)
+        print("完整路径：", self.entire_road)
+        print("最短距离：", self.min_distance)
+        print("简单路径的地名：", self.simple_citys_name)
+        print("完整路径的地名：", self.entire_citys_name)
+        print("每个地点距离出发点距离：", self.signle_distance)
+
 
 if __name__ == '__main__':
     r = Route()

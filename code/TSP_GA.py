@@ -5,7 +5,7 @@ import time
 import numpy as np
 
 from geopy.distance import geodesic
-from Route import *
+from TSP import *
 
 SCORE_NONE = -1
 
@@ -15,27 +15,18 @@ def main():
     pos = [17, 22, 41, 33]
     tsp = TSP_GA(pos)
     road = tsp.run(30)
-    print(road.simple_road)
-    print(road.entire_road)
-    print(road.min_distance)
-    print(road.simple_citys_name)
-    print(road.entire_citys_name)
-    print(road.signle_distance)
+    road.PrintInfo()
     end = time.time()
     print(end - start, 's')
 
 
-class TSP_GA(object):
+class TSP_GA(TSP):
     def __init__(self, selected_pos):
+        super(TSP_GA, self).__init__()
         # 格式为((经度,纬度),城市名,城市编号)
         self.citys = []
         self.selected_pos = selected_pos
         self.best_distance = -1
-
-        self.road = Route()
-
-        self.mat_floyd = []
-        self.pre_mat = []
         self.initCitys()
         self.individual_road = []
         self.ga = GA(aCrossRate=0.7,
@@ -59,37 +50,16 @@ class TSP_GA(object):
             pos_2 = float(positions[1])
             self.citys.append((float(pos_2), float(pos_1), name, num))
 
-        with open('../address/adj_floyd_mat.txt') as floyd_mat:
-            entired_text = floyd_mat.read()
-            for row in entired_text.split('\n'):
-                for item in row.rstrip().split(' '):
-                    self.mat_floyd.append(float(item))
-            self.mat_floyd = np.array(self.mat_floyd).reshape((47, 47))
-
-        with open('../address/pre_mat.txt') as pre_mat:
-            entired_text = pre_mat.read()
-            for row in entired_text.split('\n'):
-                for item in row.rstrip().split(' '):
-                    self.pre_mat.append(int(item))
-            self.pre_mat = np.array(self.pre_mat).reshape((47, 47))
-
     def distance(self, road):
-        distance = 0.0
-        order = []
-        # i从-1到32,-1是倒数第一个
-        self.individual_road.clear()
-        for i in range(-1, len(road) - 1):
-            city1 = road[i]
-            city2 = road[i + 1]
-            order.append(city1)
-            self.get_two_point_road(city1, city2, 1)
-            order = self.individual_road
-
-        for i in range(-1, len(order) - 1):
-            index1, index2 = order[i], order[i + 1]
-            city1, city2 = self.citys[index1], self.citys[index2]
-            distance += geodesic((city1[1], city1[0]), (city2[1], city2[0])).m
-        return distance
+        sum = 0.0
+        print(road)
+        for i in range(len(road)):
+            city1 = road[i-1]
+            city2 = road[i]
+            print((city1,city2))
+            dis = self.mat_floyd[city1][city2]
+            sum += dis
+        return sum
 
     # 适应度函数，因为我们要从种群中挑选距离最短的，作为最优解，所以（1/距离）最长的就是我们要求的
     def matchFun(self):
@@ -115,46 +85,13 @@ class TSP_GA(object):
             index = (index + 1) % len(s)
 
         t.append(self.selected_pos[0])
+        self.road.clear()
         self.road.simple_road = t
         self.get_entire_path()
         self.road.min_distance = self.best_distance
         self.GetSignalDistance()
         self.road.GetCitysName()
         return self.road
-
-    def get_entire_path(self):
-        pre_point = -1
-        for item in self.road.simple_road:
-            if pre_point != -1:
-                self.get_two_point_road(pre_point, item)
-            pre_point = item
-            self.road.entire_road.append(item)
-
-    def get_two_point_road(self, i, j, model=0):
-        if model == 0:
-            if j != self.pre_mat[i][j]:
-                j = self.pre_mat[i][j]
-                self.get_two_point_road(i, j)
-                self.road.entire_road.append(j)
-        elif model == 1:
-            if j != self.pre_mat[i][j]:
-                j = self.pre_mat[i][j]
-                self.get_two_point_road(i, j, 1)
-                self.individual_road.append(j)
-
-    def GetSignalDistance(self):
-        sum = 0
-        for i in range(len(self.road.simple_road) - 1):
-            if i == 0:
-                self.road.signle_distance.append(self.road.min_distance)
-                continue
-
-            city1 = self.road.simple_road[i - 1]
-            city2 = self.road.simple_road[i]
-
-            dis = self.mat_floyd[city1][city2]
-            sum += dis
-            self.road.signle_distance.append(sum)
 
 
 class Life(object):

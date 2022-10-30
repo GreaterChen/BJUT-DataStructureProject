@@ -39,8 +39,5 @@ class TSP_BackTrack(TSP):
 
 if __name__ == '__main__':
     t = TSP_BackTrack()
-    t.run([17, 22, 41, 33])
-    print(t.road.simple_road)
-    print(t.road.entire_road)
-    print(t.road.min_distance)
-    print(t.road.signle_distance)
+    road = t.run([17, 22, 41, 33])
+    road.PrintInfo()

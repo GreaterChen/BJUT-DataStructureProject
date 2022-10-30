@@ -615,7 +615,7 @@ class MainWindow(QWidget):
 
             elif self.AlgorithmModel == 1:
                 t = TSP_GA(self.selected_pos)
-                self.road = t.run(10)
+                self.road = t.run(20)
 
             elif self.AlgorithmModel == 2:
                 t = TSP_BackTrack()
