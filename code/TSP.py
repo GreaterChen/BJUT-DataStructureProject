@@ -72,3 +72,15 @@ class TSP:
             dis = self.mat_floyd[city1][city2]
             sum += dis
             self.road.signle_distance.append(sum)
+
+    def GetCitysName(self):
+        self.road.simple_citys_name.clear()
+        self.road.entire_citys_name.clear()
+
+        for item in self.road.simple_road:
+            self.road.simple_citys_name.append(self.road.citys[item][1])
+        # self.simple_citys_name.pop()
+
+        for item in self.road.entire_road:
+            self.road.entire_citys_name.append(self.road.citys[item][1])
+        # self.entire_citys_name.pop()

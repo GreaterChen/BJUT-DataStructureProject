@@ -62,8 +62,8 @@ class MainWindow(QWidget):
         font_MainText = QFont()
         font_MainText.setPointSize(12)
         self.MainText.setFont(font_MainText)
-        self.MainText.setText(
-            "<p>也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。<p>")
+        # self.MainText.setText(
+        #     "<p>也正是因为这种特性，微软仅建议将 Mica 用在窗口的基础图层上。如此一来既能起到突出窗口主体的效果，又不会因为应用在弹窗这种地方但却无法实时透明带来令人困惑的视觉效果。事实上，如果仅仅从视觉效果上来说，Mica 更像是一种亚克力的「低配版」，或者说 Windows 11 针对一些需要长时间、频繁打开的窗口（比如资源管理器、系统设置）推出的「低功耗定制版」。如果运用得当，它比传统的纯色窗口标题栏更加温婉、细腻，同时又不会像亚克力那样带来太多额外的性能开销。其他方面 Mica 则与亚克力大同小异了，比如支持明、暗色切换，在窗口失焦时会自动回落到纯色效果等等。<p>")
         self.MainText.textChanged.connect(self.Savelog)
 
         self.xiaohui = QLabel(Widget)
@@ -151,10 +151,10 @@ class MainWindow(QWidget):
         self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
 
-        self.ChangeRoad = QPushButton(self)
-        self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
-        self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
-        self.ChangeRoad.setObjectName("ChangeRoad")
+        # self.ChangeRoad = QPushButton(self)
+        # self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
+        # self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
+        # self.ChangeRoad.setObjectName("ChangeRoad")
 
         self.GetBetterRoad = QPushButton(self)
         self.GetBetterRoad.setGeometry(QRect(100, 240, 95, 50))
@@ -200,9 +200,9 @@ class MainWindow(QWidget):
         self.TSP_button.setObjectName("TSP_button")
         self.horizontalLayout_2.addWidget(self.TSP_button)
 
-        self.TSPwr_button = QRadioButton(self.layoutWidget1)
-        self.TSPwr_button.setObjectName("TSPwr_button")
-        self.horizontalLayout_2.addWidget(self.TSPwr_button)
+#         # self.TSPwr_button = QRadioButton(self.layoutWidget1)
+#         # self.TSPwr_button.setObjectName("TSPwr_button")
+#         # self.horizontalLayout_2.addWidget(self.TSPwr_button)
 
         self.by_order_button = QRadioButton(self.layoutWidget1)
         self.by_order_button.setObjectName("by_order_button")
@@ -540,12 +540,12 @@ class MainWindow(QWidget):
         self.how_to_use.setText(_translate("Widget", "使用说明"))
         self.groupBox.setTitle(_translate("Widget", "模式选择"))
         self.TSP_button.setText(_translate("Widget", "TSP"))
-        self.TSPwr_button.setText(_translate("Widget", "TSP without return"))
+        # self.TSPwr_button.setText(_translate("Widget", "TSP without return"))
         self.by_order_button.setText(_translate("Widget", "by order"))
 
         self.GetBetterRoad.setText(_translate("Widget", "简化路线"))
         self.Start.setText(_translate("Widget", "出发"))
-        self.ChangeRoad.setText(_translate("Widget", "换条路线"))
+        # self.ChangeRoad.setText(_translate("Widget", "换条路线"))
 
         self.A1.setToolTip(_translate("Widget", "宿舍2号楼"))
         self.A2.setToolTip(_translate("Widget", "天天餐厅&学生综合服务大厅"))
@@ -616,8 +616,8 @@ class MainWindow(QWidget):
                 t = TSP_BackTrack()
                 self.road = self.tsp_backtrack.run(self.selected_pos)
                 t.ClearAll()
-        elif self.TSPwr_button.isChecked():
-            pass
+        # elif self.TSPwr_button.isChecked():
+        #     pass
         elif self.by_order_button.isChecked():
             order = ByOrder(self.selected_pos)
             self.road = order.run()
@@ -745,8 +745,8 @@ class MainWindow(QWidget):
     def ChangeModel(self, model):
         if model == 0:
             self.TSP_button.setChecked(True)
-        elif model == 1:
-            self.TSPwr_button.setChecked(True)
+        # elif model == 1:
+            # self.TSPwr_button.setChecked(True)
         elif model == 2:
             self.by_order_button.setChecked(True)
 
@@ -783,8 +783,8 @@ class MainWindow(QWidget):
 
         if text[1] == '0':
             self.TSP_button.setChecked(True)
-        elif text[1] == '1':
-            self.TSPwr_button.setChecked(True)
+        # elif text[1] == '1':
+            # self.TSPwr_button.setChecked(True)
         elif text[1] == '2':
             self.by_order_button.setChecked(True)
 
@@ -816,6 +816,8 @@ class MainWindow(QWidget):
         self.BubbleOpacity = int(text[5]) / 100
 
     def GetBackStep(self):
+        if not len(self.selected_pos):
+            return
         self.Main_text += "已删除："
         exec(f"text = self.A{self.selected_pos[-1]}.toolTip()\n")
         exec("self.Main_text += text")
@@ -876,7 +878,7 @@ class MainWindow(QWidget):
                 threading_list.append(t)
             for t in threading_list:
                 t.join()
-            self.new_road.GetCitysName()
+            # self.GetCitysName()
         else:
             print(self.selected_pos)
             for item in self.selected_pos:

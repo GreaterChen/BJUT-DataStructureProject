@@ -82,10 +82,10 @@ class Ui_Settings(QMainWindow):
         self.tsp.clicked.connect(self.slot_model)
         self.DefaultLayout.addWidget(self.tsp)
 
-        self.tspwr = QRadioButton(self.layoutWidget)
-        self.tspwr.setObjectName("tspwr")
-        self.tspwr.clicked.connect(self.slot_model)
-        self.DefaultLayout.addWidget(self.tspwr)
+        # self.tspwr = QRadioButton(self.layoutWidget)
+        # self.tspwr.setObjectName("tspwr")
+        # self.tspwr.clicked.connect(self.slot_model)
+        # self.DefaultLayout.addWidget(self.tspwr)
 
         self.byorder = QRadioButton(self.layoutWidget)
         self.byorder.setObjectName("byorder")
@@ -189,7 +189,7 @@ class Ui_Settings(QMainWindow):
 
         self.DefaultBox.setTitle(_translate("Settings", "导航模式"))
         self.tsp.setText(_translate("Settings", "TSP"))
-        self.tspwr.setText(_translate("Settings", "TSP without return"))
+        # self.tspwr.setText(_translate("Settings", "TSP without return"))
         self.byorder.setText(_translate("Settings", "By Order"))
 
         self.Others.setTitle(_translate("Settings", "其他"))
@@ -221,8 +221,8 @@ class Ui_Settings(QMainWindow):
     def slot_model(self):
         if self.tsp.isChecked():
             self.Signal_model.emit(0)
-        elif self.tspwr.isChecked():
-            self.Signal_model.emit(1)
+        # elif self.tspwr.isChecked():
+        #     self.Signal_model.emit(1)
         elif self.byorder.isChecked():
             self.Signal_model.emit(2)
 
@@ -259,8 +259,8 @@ class Ui_Settings(QMainWindow):
 
             if self.tsp.isChecked():
                 settings.append('0')
-            elif self.tspwr.isChecked():
-                settings.append('1')
+            # elif self.tspwr.isChecked():
+            #     settings.append('1')
             elif self.byorder.isChecked():
                 settings.append('2')
 
@@ -300,8 +300,8 @@ class Ui_Settings(QMainWindow):
 
         if text[1] == '0':
             self.tsp.setChecked(True)
-        elif text[1] == '1':
-            self.tspwr.setChecked(True)
+        # elif text[1] == '1':
+        #     self.tspwr.setChecked(True)
         elif text[1] == '2':
             self.byorder.setChecked(True)
 

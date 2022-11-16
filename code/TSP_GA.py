@@ -88,7 +88,7 @@ class TSP_GA(TSP):
         self.get_entire_path()
         self.road.min_distance = self.best_distance
         self.GetSignalDistance()
-        self.road.GetCitysName()
+        self.GetCitysName()
         return self.road
 
 

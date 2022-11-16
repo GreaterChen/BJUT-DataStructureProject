@@ -1,13 +1,16 @@
-class Route:
-    citys = []
+import numpy as np
 
+
+class Route:
     def __init__(self):
-        self.simple_road = []
-        self.entire_road = []
-        self.min_distance = 1e9
-        self.signle_distance = []
-        self.simple_citys_name = []
-        self.entire_citys_name = []
+        self.citys = []  # 所有地点和编号的对应关系
+        self.mat_floyd = []
+        self.simple_road = []  # 只包含指定目的地的编号
+        self.entire_road = []  # 包含中间地点的编号
+        self.min_distance = 1e9  # 最短路线长度
+        self.signle_distance = []  # 每个目的地距离出发的距离
+        self.simple_citys_name = []  # 目的地名称
+        self.entire_citys_name = []  # 包含中间地点的名称
 
         with open("../address/citys_name.txt") as f:
             text = f.read().split('\n')
@@ -16,23 +19,21 @@ class Route:
                 self.citys.append(city)
         f.close()
 
+        with open('../address/adj_floyd_mat.txt') as floyd_mat:
+            entired_text = floyd_mat.read()
+            for row in entired_text.split('\n'):
+                for item in row.rstrip().split(' '):
+                    self.mat_floyd = np.append(self.mat_floyd, float(item))
+        self.mat_floyd = self.mat_floyd.reshape((47, 47))
+        floyd_mat.close()
+
     def clear(self):
         self.simple_road = []
         self.entire_road = []
         self.min_distance = 1e9
         self.signle_distance = []
 
-    def GetCitysName(self):
-        self.simple_citys_name.clear()
-        self.entire_citys_name.clear()
 
-        for item in self.simple_road:
-            self.simple_citys_name.append(self.citys[item][1])
-        # self.simple_citys_name.pop()
-
-        for item in self.entire_road:
-            self.entire_citys_name.append(self.citys[item][1])
-        # self.entire_citys_name.pop()
 
     def PrintInfo(self):
         print("简单路径：", self.simple_road)
@@ -47,5 +48,4 @@ if __name__ == '__main__':
     r = Route()
     r.simple_road = [4, 7, 9, 11]
     r.entire_road = [1, 2, 3, 4]
-    r.GetCitysName()
     print(r.citys)

@@ -16,7 +16,7 @@ class TSP_BackTrack(TSP):
         self.backtrack(path, self.pos[0], 0, used)
         self.get_entire_path()
         self.GetSignalDistance()
-        self.road.GetCitysName()
+        self.GetCitysName()
         return self.road
 
     def backtrack(self, path, come, sum, used):
