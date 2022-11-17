@@ -14,7 +14,7 @@ class TSP_BackTrack(TSP):
         used = np.zeros((len(self.pos),), dtype=int)
         used[0] = 1
         self.backtrack(path, self.pos[0], 0, used)
-        self.get_entire_path()
+        self.GetEntireRoad()
         self.GetSignalDistance()
         self.GetCitysName()
         return self.road

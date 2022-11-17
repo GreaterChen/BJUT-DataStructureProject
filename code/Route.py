@@ -4,7 +4,6 @@ import numpy as np
 class Route:
     def __init__(self):
         self.citys = []  # 所有地点和编号的对应关系
-        self.mat_floyd = []
         self.simple_road = []  # 只包含指定目的地的编号
         self.entire_road = []  # 包含中间地点的编号
         self.min_distance = 1e9  # 最短路线长度
@@ -19,21 +18,11 @@ class Route:
                 self.citys.append(city)
         f.close()
 
-        with open('../address/adj_floyd_mat.txt') as floyd_mat:
-            entired_text = floyd_mat.read()
-            for row in entired_text.split('\n'):
-                for item in row.rstrip().split(' '):
-                    self.mat_floyd = np.append(self.mat_floyd, float(item))
-        self.mat_floyd = self.mat_floyd.reshape((47, 47))
-        floyd_mat.close()
-
-    def clear(self):
+    def Clear(self):
         self.simple_road = []
         self.entire_road = []
         self.min_distance = 1e9
         self.signle_distance = []
-
-
 
     def PrintInfo(self):
         print("简单路径：", self.simple_road)

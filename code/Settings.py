@@ -115,11 +115,11 @@ class Ui_Settings(QMainWindow):
 
         self.AlgorithmLayout.addWidget(self.GA)
 
-        self.BackTrack = QRadioButton(self.widget)
-        self.BackTrack.setObjectName("BackTrack")
-        self.BackTrack.clicked.connect(self.slot_Algorithm)
+        self.DP = QRadioButton(self.widget)
+        self.DP.setObjectName("DP")
+        self.DP.clicked.connect(self.slot_Algorithm)
 
-        self.AlgorithmLayout.addWidget(self.BackTrack)
+        self.AlgorithmLayout.addWidget(self.DP)
 
         self.Others = QGroupBox(Settings)
         self.Others.setGeometry(QRect(10, 280, 361, 131))  # 起点x、起点y、宽、高
@@ -197,7 +197,7 @@ class Ui_Settings(QMainWindow):
         self.Confirm.setText(_translate("Settings", "确定更改"))
 
         self.AlgorithmBox.setTitle(_translate("Settings", "算法"))
-        self.BackTrack.setText(_translate("Settings", "回溯算法"))
+        self.DP.setText(_translate("Settings", "动态规划"))
         self.GA.setText(_translate("Settings", "遗传算法"))
         self.AutoSelect.setText(_translate("Settings", "智能选择"))
         self.ChangeAdd.setText(_translate("Settings", "存储路径更改"))
@@ -231,7 +231,7 @@ class Ui_Settings(QMainWindow):
             self.Signal_Algorithm.emit(0)
         elif self.GA.isChecked():
             self.Signal_Algorithm.emit(1)
-        elif self.BackTrack.isChecked():
+        elif self.DP.isChecked():
             self.Signal_Algorithm.emit(2)
 
     def ChangeAddress(self):
@@ -268,7 +268,7 @@ class Ui_Settings(QMainWindow):
                 settings.append('0')
             elif self.GA.isChecked():
                 settings.append('1')
-            elif self.BackTrack.isChecked():
+            elif self.DP.isChecked():
                 settings.append('2')
 
             if self.showtb.isChecked():
@@ -310,7 +310,7 @@ class Ui_Settings(QMainWindow):
         elif text[2] == '1':
             self.GA.setChecked(True)
         elif text[2] == '2':
-            self.BackTrack.setChecked(True)
+            self.DP.setChecked(True)
 
         if text[3] == '1':
             self.showtb.setChecked(True)

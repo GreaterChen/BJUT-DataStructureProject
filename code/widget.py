@@ -9,6 +9,7 @@ from Settings import *
 from ByOrder import *
 from SaveConfirm import *
 from Bubble import *
+from TSP_DP import *
 
 
 # noinspection PyAttributeOutsideInit
@@ -18,10 +19,7 @@ class MainWindow(QWidget):
         self.selected_pos = []
         self.Main_text = ''
         self.road = Route()
-        self.BubbleOpacity = 0.50
-
-        self.tsp_backtrack = TSP_BackTrack()
-        self.IsNBG = False
+        self.BubbleOpacity = 0.60
         self.AddofFigure = "D:\\Grade_3.1\\DS\\project\\result"
         self.Roll = Intro_UI()
         self.Settings = Ui_Settings()
@@ -607,17 +605,14 @@ class MainWindow(QWidget):
                     t = TSP_GA(self.selected_pos)
                     self.road = t.run(20)
                 else:
-                    self.road = copy.deepcopy(self.tsp_backtrack.run(self.selected_pos))
-                    self.tsp_backtrack.ClearAll()
+                    t = TSP_DP(self.selected_pos)
+                    self.road = t.run()
             elif self.AlgorithmModel == 1:
                 t = TSP_GA(self.selected_pos)
                 self.road = t.run(20)
             elif self.AlgorithmModel == 2:
-                t = TSP_BackTrack()
-                self.road = self.tsp_backtrack.run(self.selected_pos)
-                t.ClearAll()
-        # elif self.TSPwr_button.isChecked():
-        #     pass
+                t = TSP_DP()
+                self.road = T.run()
         elif self.by_order_button.isChecked():
             order = ByOrder(self.selected_pos)
             self.road = order.run()
@@ -718,7 +713,6 @@ class MainWindow(QWidget):
         if model == 0:
             palette = QPalette()
             self.setPalette(palette)
-            self.IsNBG = True
         elif model == 1:
             palette = QPalette()
             palette.setBrush(QPalette.Background, QBrush(QPixmap("../images/background_1.jpg")))
@@ -771,7 +765,6 @@ class MainWindow(QWidget):
         if text[0] == '0':
             palette = QPalette()
             self.setPalette(palette)
-            self.IsNBG = False
         elif text[0] == '1':
             palette = QPalette()
             palette.setBrush(QPalette.Background, QBrush(QPixmap("../images/background_1.jpg")))
@@ -801,15 +794,12 @@ class MainWindow(QWidget):
             self.MainText.setGraphicsEffect(effect_shadow)
             self.MainText.setStyleSheet("background:transparent;border-width:0;border-style:outset")
         else:
-            if self.IsNBG:
-                effect_shadow = QGraphicsDropShadowEffect(self)
-                effect_shadow.setOffset(0, 0)
-                effect_shadow.setBlurRadius(20)
-                effect_shadow.setColor(Qt.gray)
-                self.MainText.setGraphicsEffect(effect_shadow)
-                self.MainText.setStyleSheet("background:")
-            else:
-                self.MainText.setStyleSheet("background:")
+            effect_shadow = QGraphicsDropShadowEffect(self)
+            effect_shadow.setOffset(0, 0)
+            effect_shadow.setBlurRadius(20)
+            effect_shadow.setColor(Qt.gray)
+            self.MainText.setGraphicsEffect(effect_shadow)
+            self.MainText.setStyleSheet("background:")
 
         self.AddofFigure = text[4]
 
@@ -920,8 +910,8 @@ class MainWindow(QWidget):
         pos.remove(item)
         if self.AlgorithmModel == 0:
             if len(self.selected_pos) <= 8:
-                road = copy.deepcopy(self.tsp_backtrack.run(pos))
-                self.tsp_backtrack.ClearAll()
+                t = TSP_DP(pos)
+                road = copy.deepcopy(t.run())
             else:
                 t = TSP_GA(pos)
                 road = copy.deepcopy(t.run(10))
@@ -929,8 +919,8 @@ class MainWindow(QWidget):
             t = TSP_GA(pos)
             road = copy.deepcopy(t.run(10))
         else:
-            road = copy.deepcopy(self.tsp_backtrack.run(pos))
-            self.tsp_backtrack.ClearAll()
+            t = TSP_DP(pos)
+            road = copy.deepcopy(t.run())
 
         if road.min_distance < self.new_road.min_distance:
             self.new_road = road

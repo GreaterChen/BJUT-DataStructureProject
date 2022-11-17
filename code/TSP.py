@@ -8,9 +8,9 @@ class TSP:
         self.mat = np.array([])
         self.mat_floyd = np.array([])
         self.mat_pre = np.array([], dtype=int)
-        self.read_txt()
+        self.Readtxt()
 
-    def read_txt(self):
+    def Readtxt(self):
         with open('../address/adj_mat.txt') as f_mat:
             entired_text = f_mat.read()
             for row in entired_text.split('\n'):
@@ -33,9 +33,9 @@ class TSP:
         self.mat_pre = self.mat_pre.reshape((47, 47))
 
     def ClearAll(self):
-        self.road.clear()
+        self.road.Clear()
 
-    def get_min_distance(self):
+    def GetMinDistance(self):
         sum = 0.0
         road = self.road.simple_road[:-1]
         for item in range(len(road)):
@@ -45,18 +45,18 @@ class TSP:
             sum += dis
         self.road.min_distance = sum
 
-    def get_entire_path(self):
+    def GetEntireRoad(self):
         pre_point = -1
         for item in self.road.simple_road:
             if pre_point != -1:
-                self.get_two_point_road(pre_point, item)
+                self.GetTwoPointRoad(pre_point, item)
             pre_point = item
             self.road.entire_road.append(item)
 
-    def get_two_point_road(self, i, j):
+    def GetTwoPointRoad(self, i, j):
         if j != self.mat_pre[i][j]:
             j = self.mat_pre[i][j]
-            self.get_two_point_road(i, j)
+            self.GetTwoPointRoad(i, j)
             self.road.entire_road.append(j)
 
     def GetSignalDistance(self):
