@@ -44,19 +44,19 @@ class TSP_DP(TSP):
             node_j = self.nums[i]
             usedd = used.copy()
             usedd[i] = 1
-            if str((node_j, usedd)) in self.memory:
-                distance.append([self.X[node][node_j] + self.memory[str(node_j, usedd)], node_j])
-
-            distance.append([self.X[node][node_j] + self.solve(node_j, usedd), node_j])
+            if self.memory.get(f"({node_j},{usedd})") is not None:
+                distance.append([self.X[node][node_j] + self.memory[f"({node_j},{usedd})"], node_j])
+            else:
+                distance.append([self.X[node][node_j] + self.solve(node_j, usedd), node_j])
         d = np.min(distance, axis=0)[0]
         nodee = np.argmin(np.array(distance), axis=0)[0]
         next_one = distance[nodee][1]
         self.result.append(next_one)
-        self.memory.update({"(node,used)": d})
+        self.memory[f"({node},{used})"] = d
         return d
 
 
 if __name__ == '__main__':
-    t = TSP_DP([17, 22, 41, 33])
+    t = TSP_DP([17, 22, 41, 33, 12, 19])
     road = t.run()
     road.PrintInfo()

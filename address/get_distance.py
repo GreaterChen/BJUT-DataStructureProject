@@ -82,24 +82,24 @@ def check_neighbor():
 
 
 # 获得邻接矩阵并写入文件
-for i in range(47):
-    for j in neighbor[i]:
-        dis = geodesic((buildings[i][2], buildings[i][3]), (buildings[j][2], buildings[j][3])).m
-        adj_mat[i][j] = dis
+def GetAdj():
+    for i in range(47):
+        for j in neighbor[i]:
+            dis = geodesic((buildings[i][2], buildings[i][3]), (buildings[j][2], buildings[j][3])).m
+            adj_mat[i][j] = dis
 
-for i in range(47):
-    for j in range(47):
-        if adj_mat[i][j] == 0.0:
-            adj_mat[i][j] = 1e7
-
-with open("adj_mat.txt", 'w') as file:
     for i in range(47):
         for j in range(47):
-            file.write(str(adj_mat[i][j]))
-            file.write(' ')
-        file.write('\n')
+            if adj_mat[i][j] == 0.0:
+                adj_mat[i][j] = 1e7
 
-file.close()
+    with open("adj_mat.txt", 'w') as file:
+        for i in range(47):
+            for j in range(47):
+                file.write(str(adj_mat[i][j]))
+                file.write(' ')
+            file.write('\n')
+    file.close()
 
 # 使用Floyd算法计算两点间最短路径并写入文件
 lengthD = len(adj_mat)  # 邻接矩阵大小
@@ -109,33 +109,32 @@ for i in range(lengthD):
     pre_mat.append(p)
 pre_mat = array(pre_mat)
 
-for i in range(lengthD):
-    for j in range(lengthD):
-        for k in range(lengthD):
-            if adj_mat[i, j] > adj_mat[i, k] + adj_mat[j, k]:  # 两个顶点直接较小的间接路径替换较大的直接路径
-                adj_mat[i, j] = adj_mat[i, k] + adj_mat[j, k]
-                pre_mat[i, j] = pre_mat[j, k]  # 记录新路径的前驱
-# print(pre_mat)
-# print(adj_mat)
 
+def GetFloyd():
+    for i in range(lengthD):
+        for j in range(lengthD):
+            for k in range(lengthD):
+                if adj_mat[i, j] > adj_mat[i, k] + adj_mat[j, k]:  # 两个顶点直接较小的间接路径替换较大的直接路径
+                    adj_mat[i, j] = adj_mat[i, k] + adj_mat[j, k]
+                    pre_mat[i, j] = pre_mat[j, k]  # 记录新路径的前驱
 
-with open("pre_mat.txt", 'w') as file:
-    for i in range(47):
-        for j in range(47):
-            file.write(str(pre_mat[i][j]))
-            file.write(' ')
-        file.write('\n')
+    with open("pre_mat.txt", 'w') as file:
+        for i in range(47):
+            for j in range(47):
+                file.write(str(pre_mat[i][j]))
+                file.write(' ')
+            file.write('\n')
 
-file.close()
+    file.close()
 
-with open("adj_floyd_mat.txt", 'w') as file:
-    for i in range(47):
-        for j in range(47):
-            file.write(str(adj_mat[i][j]))
-            file.write(' ')
-        file.write('\n')
+    with open("adj_floyd_mat.txt", 'w') as file:
+        for i in range(47):
+            for j in range(47):
+                file.write(str(adj_mat[i][j]))
+                file.write(' ')
+            file.write('\n')
 
-file.close()
+    file.close()
 
 road = []
 

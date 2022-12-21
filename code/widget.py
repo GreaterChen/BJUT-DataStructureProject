@@ -127,6 +127,7 @@ class MainWindow(QWidget):
         self.how_to_use.setMinimumSize(QSize(95, 50))
         self.how_to_use.setMaximumSize(QSize(95, 50))
         self.how_to_use.setObjectName("how_to_use")
+        self.how_to_use.clicked.connect(self.UseIntro)
         self.horizontalLayout_3.addWidget(self.how_to_use)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
@@ -148,11 +149,6 @@ class MainWindow(QWidget):
         self.GetBack.setObjectName("GetBack")
         self.GetBack.clicked.connect(self.GetBackStep)
         self.horizontalLayout.addWidget(self.GetBack)
-
-        # self.ChangeRoad = QPushButton(self)
-        # self.ChangeRoad.setGeometry(QRect(100, 170, 95, 50))
-        # self.ChangeRoad.setStyleSheet("background:rgb(197, 225, 184)")
-        # self.ChangeRoad.setObjectName("ChangeRoad")
 
         self.GetBetterRoad = QPushButton(self)
         self.GetBetterRoad.setGeometry(QRect(100, 240, 95, 50))
@@ -197,10 +193,6 @@ class MainWindow(QWidget):
         self.TSP_button = QRadioButton(self.layoutWidget1)
         self.TSP_button.setObjectName("TSP_button")
         self.horizontalLayout_2.addWidget(self.TSP_button)
-
-#         # self.TSPwr_button = QRadioButton(self.layoutWidget1)
-#         # self.TSPwr_button.setObjectName("TSPwr_button")
-#         # self.horizontalLayout_2.addWidget(self.TSPwr_button)
 
         self.by_order_button = QRadioButton(self.layoutWidget1)
         self.by_order_button.setObjectName("by_order_button")
@@ -868,13 +860,10 @@ class MainWindow(QWidget):
                 threading_list.append(t)
             for t in threading_list:
                 t.join()
-            # self.GetCitysName()
         else:
-            print(self.selected_pos)
             for item in self.selected_pos:
                 pos = self.selected_pos.copy()
                 pos.remove(item)
-                print("***", pos)
                 order = ByOrder(pos)
                 road = order.run()
                 if road.min_distance < self.new_road.min_distance:
@@ -933,3 +922,31 @@ class MainWindow(QWidget):
         add = self.AddofFigure + '/res.txt'
         with open(add, "w") as f:
             f.write(self.MainText.toPlainText())
+
+    def UseIntro(self):
+        QMessageBox.information(self,"提示",'''<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(240, 240, 240); color: rgb(68, 68, 68);">本程序为北京工业大学校园导航系统，内置<span class="hljs-number" style="color: rgb(136, 0, 0);">47</span>个学校地点，
+可以在选择多个地点后实现经过每个地点一次且回到原地点的路线规划。
+首先，您可以点击程序地图上的任意地点<span class="hljs-comment" style="color: rgb(136, 136, 136);">(除建国饭店与西区)</span>
+来选中您想要到达目的地，再次点击可以取消指定地点选中，
+点击右上角“撤销选择”可以撤销上一次选中的地点，
+点击“清空选择”可以清空之前选择的所有地点。
+所有选点信息会同步在右侧信息栏展示，您可以随时确定自己选点是否正确。
+当选点完成后，右侧有两个模式供您选择，一个是TSP,即上述功能的实现，
+一个是ByOrder，即按照您选点的顺序为您规划最短到达路线。
+在选择完毕模式后，您可以点击“生成路线”来获取规划结果。
+右侧信息栏会详细展示您此次行程的总距离、预计时间以及路线规划；
+图片上会绘制出具体路线，同时您的目的地上会有气泡展示地点名称和预计到达时间，
+为了不遮挡您的视线，气泡默认为半透明，鼠标放置于气泡上方即可取消透明，
+您也可以在设置界面更改气泡透明度。若您当前不想出发，可以在出发时点击左侧“出发”按钮，
+气泡内的预计到达时间便会以您当前的系统时间进行更新。与此同时，
+您的路线信息也会存储在默认桌面的位置，包括路线地图以及右侧信息栏的显示信息，
+您可以在设置界面更改默认存储位置。
+若您认为当前规划路径过长，想要简化路线，可以点击左侧“简化路线”按钮，
+系统会智能为您略去一个花费时间最长的目的地，具体省略信息也会在右侧信息栏中展示。
+点击右上角“设置”按钮，可以进入设置界面，您可以选择程序背景图、规划模式、规划算法、
+气泡透明度、是否展示右侧文本框背景、结果存储路径等，
+当您选择完毕后点击“确认更改”，在弹出的提示框中选择确认更改默认配置即可将您此次的更改永久保留
+，当下次进入程序时仍然可以保留上次的设置。
+右上角的校园简介可以在子窗口中自动打开学校官网，您可以在该地方获取学校最新消息。
+</pre>
+''',)

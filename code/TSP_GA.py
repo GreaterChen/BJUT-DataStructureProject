@@ -28,7 +28,6 @@ class TSP_GA(TSP):
         self.selected_pos = selected_pos
         self.best_distance = -1
         self.initCitys()
-        self.individual_road = []
         self.ga = GA(aCrossRate=0.7,
                      aMutationRate=0.02,
                      aLifeCount=30,  # 种群规模
@@ -83,7 +82,7 @@ class TSP_GA(TSP):
             index = (index + 1) % len(s)
 
         t.append(self.selected_pos[0])
-        self.road.clear()
+        self.road.Clear()
         self.road.simple_road = t
         self.GetEntireRoad()
         self.road.min_distance = self.best_distance

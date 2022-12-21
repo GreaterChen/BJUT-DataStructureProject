@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="65fd076c-fc4d-4411-8110-2f851084020e" name="默认变更列表" comment="修复结果显示多了一个地点的问题">
+      <change afterPath="$PROJECT_DIR$/code/history.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/code/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/widget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/school_map_change.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/school_map_change.jpg" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/code/Route.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/code/widget.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="2FiVhQt79qzYZn8Svn9csamA5eu" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/code" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Grade_3.1\DS\project\code" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Grade_3.1\DS\project\code\History" />
+      <recent name="D:\Grade_3.1\DS\project\code\test" />
+      <recent name="D:\Grade_3.1\DS\project\images" />
+      <recent name="D:\Grade_3.1\DS\project\code" />
+      <recent name="D:\Grade_3.1\DS\project\code\Intro_ui\images" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.run">
+    <configuration name="TSP_GA" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/TSP_GA.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="history (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/history.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="history" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/History" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/History/history.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.history (1)" />
+        <item itemvalue="Python.history" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.TSP_GA" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="65fd076c-fc4d-4411-8110-2f851084020e" name="默认变更列表" comment="" />
+      <created>1664975013620</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664975013620</updated>
+      <workItem from="1664975016283" duration="3518000" />
+      <workItem from="1665026707129" duration="3172000" />
+      <workItem from="1665030268845" duration="5763000" />
+      <workItem from="1665215377649" duration="1097000" />
+      <workItem from="1665216502741" duration="4012000" />
+      <workItem from="1665240650999" duration="83000" />
+      <workItem from="1665281673679" duration="5850000" />
+      <workItem from="1665329978703" duration="364000" />
+      <workItem from="1665384240011" duration="2770000" />
+      <workItem from="1665396526728" duration="1305000" />
+      <workItem from="1665397986564" duration="4675000" />
+      <workItem from="1665410095864" duration="949000" />
+      <workItem from="1665411304812" duration="737000" />
+      <workItem from="1665414291928" duration="1297000" />
+      <workItem from="1665466003878" duration="82000" />
+      <workItem from="1665475109029" duration="585000" />
+      <workItem from="1665475716625" duration="1705000" />
+      <workItem from="1665482067803" duration="14754000" />
+      <workItem from="1665500156464" duration="72000" />
+      <workItem from="1665500874712" duration="45000" />
+      <workItem from="1665572692208" duration="440000" />
+      <workItem from="1665632060927" duration="7327000" />
+      <workItem from="1665660971599" duration="1072000" />
+      <workItem from="1665732773420" duration="1115000" />
+      <workItem from="1665733916139" duration="874000" />
+      <workItem from="1665745347708" duration="1193000" />
+      <workItem from="1665838617695" duration="2593000" />
+      <workItem from="1666021705276" duration="120000" />
+      <workItem from="1666149096898" duration="10681000" />
+      <workItem from="1666167820483" duration="732000" />
+      <workItem from="1666181615599" duration="4483000" />
+      <workItem from="1666244778761" duration="2284000" />
+      <workItem from="1666265682050" duration="182000" />
+      <workItem from="1666265890689" duration="971000" />
+      <workItem from="1666266891475" duration="619000" />
+      <workItem from="1666267536221" duration="402000" />
+      <workItem from="1666267961133" duration="368000" />
+      <workItem from="1666268352907" duration="1477000" />
+      <workItem from="1666323457784" duration="2521000" />
+      <workItem from="1666326021422" duration="1974000" />
+      <workItem from="1666330083119" duration="909000" />
+      <workItem from="1666331487091" duration="487000" />
+      <workItem from="1666416983961" duration="670000" />
+      <workItem from="1666587531657" duration="1321000" />
+      <workItem from="1666597899511" duration="1203000" />
+      <workItem from="1666676222238" duration="188000" />
+      <workItem from="1666930717867" duration="3460000" />
+      <workItem from="1666935017667" duration="14219000" />
+      <workItem from="1666954878107" duration="13813000" />
+      <workItem from="1667016365627" duration="15033000" />
+      <workItem from="1667034537296" duration="15854000" />
+      <workItem from="1667101233811" duration="14223000" />
+      <workItem from="1667136559474" duration="645000" />
+      <workItem from="1667180989896" duration="319000" />
+      <workItem from="1667191706389" duration="2868000" />
+      <workItem from="1667195755116" duration="2179000" />
+    </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1666945779991</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666945779991</updated>
+    </task>
+    <task id="LOCAL-00002" summary="增加了BetterRoad的边界检查">
+      <created>1667026431644</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667026431644</updated>
+    </task>
+    <task id="LOCAL-00003" summary="实现撤销按钮功能">
+      <created>1667028675591</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667028675591</updated>
+    </task>
+    <task id="LOCAL-00004" summary="实现Bubble中显示预计到达时间且适配优化路线">
+      <created>1667042351371</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667042351371</updated>
+    </task>
+    <task id="LOCAL-00005" summary="创建存储路线的类">
+      <created>1667043233484</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667043233484</updated>
+    </task>
+    <task id="LOCAL-00006" summary="重写TSP_BackTrack">
+      <created>1667047899072</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667047899072</updated>
+    </task>
+    <task id="LOCAL-00007" summary="将获取城市名归入Route类">
+      <created>1667049340494</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667049340494</updated>
+    </task>
+    <task id="LOCAL-00008" summary="重写主界面适配BackTrack">
+      <created>1667051865654</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667051865655</updated>
+    </task>
+    <task id="LOCAL-00009" summary="修正预计时间计算错误、优化结果展示">
+      <created>1667053438128</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667053438128</updated>
+    </task>
+    <task id="LOCAL-00010" summary="重写TSP_GA且适配主界面">
+      <created>1667103615837</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667103615837</updated>
+    </task>
+    <task id="LOCAL-00011" summary="创建TSP类并重写TSP_BackTrack">
+      <created>1667105448004</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1667105448004</updated>
+    </task>
+    <task id="LOCAL-00012" summary="重写TSP_GA类">
+      <created>1667107480782</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1667107480782</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修正TSP_GA距离计算错误，优化结果展示">
+      <created>1667107768290</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1667107768290</updated>
+    </task>
+    <task id="LOCAL-00014" summary="修正简化路线多线程冲突的BUG">
+      <created>1667108610015</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1667108610015</updated>
+    </task>
+    <task id="LOCAL-00015" summary="彻底解决多线程冲突">
+      <created>1667111258856</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1667111258856</updated>
+    </task>
+    <task id="LOCAL-00016" summary="完成ByOrder功能">
+      <created>1667115449628</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1667115449629</updated>
+    </task>
+    <task id="LOCAL-00017" summary="修复结果显示多了一个地点的问题">
+      <created>1667137168644</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667137168644</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <MESSAGE value="增加了BetterRoad的边界检查" />
+    <MESSAGE value="实现撤销按钮功能" />
+    <MESSAGE value="实现Bubble中显示预计到达时间且适配优化路线" />
+    <MESSAGE value="创建存储路线的类" />
+    <MESSAGE value="重写TSP_BackTrack" />
+    <MESSAGE value="将获取城市名归入Route类" />
+    <MESSAGE value="重写主界面适配BackTrack" />
+    <MESSAGE value="修正预计时间计算错误、优化结果展示" />
+    <MESSAGE value="重写TSP_GA且适配主界面" />
+    <MESSAGE value="创建TSP类并重写TSP_BackTrack" />
+    <MESSAGE value="重写TSP_GA类" />
+    <MESSAGE value="修正TSP_GA距离计算错误，优化结果展示" />
+    <MESSAGE value="修正简化路线多线程冲突的BUG" />
+    <MESSAGE value="彻底解决多线程冲突" />
+    <MESSAGE value="完成ByOrder功能" />
+    <MESSAGE value="修复结果显示多了一个地点的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复结果显示多了一个地点的问题" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../基于自注意力机制的自闭症判别/code/main.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self.road.simple_road" language="Python" />
+        <watch expression="self.road.entire_road" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/project$TSP_BackTrack.coverage" NAME="TSP_BackTrack 覆盖结果" MODIFIED="1667106609284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$history.coverage" NAME="history 覆盖结果" MODIFIED="1667193337566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/History" />
+    <SUITE FILE_PATH="coverage/project$Route.coverage" NAME="Route 覆盖结果" MODIFIED="1667049923929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$TSP.coverage" NAME="TSP 覆盖结果" MODIFIED="1667105033162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$Roll.coverage" NAME="Roll 覆盖结果" MODIFIED="1665387738707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/test" />
+    <SUITE FILE_PATH="coverage/project$ByOrder.coverage" NAME="ByOrder 覆盖结果" MODIFIED="1665402622736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$Settings.coverage" NAME="Settings 覆盖结果" MODIFIED="1667023760184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$run.coverage" NAME="run 覆盖结果" MODIFIED="1667198393046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$main.coverage" NAME="main 覆盖结果" MODIFIED="1666248751343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../基于自注意力机制的自闭症判别/code" />
+    <SUITE FILE_PATH="coverage/project$DrawImage.coverage" NAME="DrawImage 覆盖结果" MODIFIED="1666943082718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$GA_TSP.coverage" NAME="GA_TSP 覆盖结果" MODIFIED="1664975472275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$Bubble.coverage" NAME="Bubble 覆盖结果" MODIFIED="1667033739232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$test.coverage" NAME="test 覆盖结果" MODIFIED="1667192331889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/___DS_project$run.coverage" NAME="run 覆盖结果" MODIFIED="1666265782392" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$copy.coverage" NAME="copy 覆盖结果" MODIFIED="1666325760068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$case.coverage" NAME="case 覆盖结果" MODIFIED="1666150030190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/ui_test" />
+    <SUITE FILE_PATH="coverage/project$widget.coverage" NAME="widget 覆盖结果" MODIFIED="1666269678661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$TSP_GA.coverage" NAME="TSP_GA 覆盖结果" MODIFIED="1667107408997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$GA_TSP_2.coverage" NAME="GA_TSP_2 覆盖结果" MODIFIED="1665034172866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/___DS_project$Bubble.coverage" NAME="Bubble 覆盖结果" MODIFIED="1666265854319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/project$bubble.coverage" NAME="bubble 覆盖结果" MODIFIED="1666184961412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/bubble" />
+    <SUITE FILE_PATH="coverage/project$test__1_.coverage" NAME="test (1) 覆盖结果" MODIFIED="1666181916323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QDialog" />
+    <SUITE FILE_PATH="coverage/project$history__1_.coverage" NAME="history (1) 覆盖结果" MODIFIED="1667193788888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+  </component>
+</project>

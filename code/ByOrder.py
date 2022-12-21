@@ -11,9 +11,9 @@ class ByOrder(TSP):
     def run(self):
         self.road.simple_road = self.selected_pos
         self.road.simple_road.append(self.selected_pos[0])
-        self.get_entire_path()
-        self.get_min_distance()
-        self.road.GetCitysName()
+        self.GetEntireRoad()
+        self.GetMinDistance()
+        self.GetCitysName()
         self.GetSignalDistance()
         return self.road
 
